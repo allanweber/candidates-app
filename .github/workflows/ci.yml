@@ -25,10 +25,10 @@ jobs:
 
     - name: Build DEV
       if: github.ref != 'refs/heads/master'
-      run: |
-        npm run build-dev
-        docker build . --file Dockerfile
-        docker ps -a
+      run: npm run build-dev
+      # run: |
+      #   npm run build-dev
+      #   docker build . --file Dockerfile
 
     - name: Build PRD
       if: github.ref == 'refs/heads/master'
