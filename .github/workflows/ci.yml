@@ -45,7 +45,7 @@ jobs:
       if: success()
       uses: actions/upload-artifact@v1
       with:
-        name: candidates-${CANDIDATE_VERSION}
+        name: candidates-${{CANDIDATE_VERSION}}
         path: dist
 
   deploy:
@@ -57,4 +57,4 @@ jobs:
     - name: Download build
       uses: actions/download-artifact@v1
       with:
-        name: candidates-${CANDIDATE_VERSION}
+        name: candidates-${{CANDIDATE_VERSION}}
