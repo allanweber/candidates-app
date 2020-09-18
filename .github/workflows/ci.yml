@@ -37,6 +37,12 @@ jobs:
       with:
         name: dist
         path: dist
+    - name: Archive NGINX
+      if: success()
+      uses: actions/upload-artifact@v1
+      with:
+        name: NGINX
+        path: NGINX/*
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,6 +55,11 @@ jobs:
       with:
         name: dist
         path: ~/app
+    - name: Download NGINX
+      uses: actions/download-artifact@v2
+      with:
+        name: NGINX
+        path: ~/nginx
     - name: Build image
       run: docker build . --file Dockerfile
       # run: docker build . --file Dockerfile --tag $IMAGE_NAME
