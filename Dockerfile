@@ -6,4 +6,7 @@ RUN rm -rf /usr/share/nginx/html/*
 
 COPY /dist /usr/share/nginx/html
 
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 4200 80 8080
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
