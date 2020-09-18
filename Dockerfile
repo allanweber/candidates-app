@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
-COPY /home/runner/nginx/default.conf /etc/nginx/conf.d/
+# COPY /home/runner/nginx/default.conf /etc/nginx/conf.d/
 
 RUN rm -rf /usr/share/nginx/html/*
 
