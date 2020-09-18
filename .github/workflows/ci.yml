@@ -28,7 +28,7 @@ jobs:
       run: |
         npm run build-dev
         docker build . --file Dockerfile
-        echo docker ps -a
+        docker ps -a
 
     - name: Build PRD
       if: github.ref == 'refs/heads/master'
