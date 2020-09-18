@@ -42,7 +42,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: NGINX
-        path: NGINX/*
+        path: NGINX
 
   deploy:
     runs-on: ubuntu-latest
