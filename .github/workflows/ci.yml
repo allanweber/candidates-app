@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  CANDIDATE_VERSION: 0.0.0
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,15 +19,19 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.16
+
+    - name: Read app version from package.json
+      uses: culshaw/read-package-node-version-actions@v1
+      id: app-node-version
+
+    - name: Set Version
+      run: echo ::set-env name=CANDIDATE_VERSION::${{ steps.app-node-version.outputs.version }}
+
     - name: Install dependencies
       run: npm install
 
     - name: Lint
       run: npm run lint
-
-    - name: Read app version from package.json
-      uses: culshaw/read-package-node-version-actions@v1
-      id: app-node-version
 
     - name: Build DEV
       if: github.ref != 'refs/heads/master'
@@ -38,16 +45,16 @@ jobs:
       if: success()
       uses: actions/upload-artifact@v1
       with:
-        name: candidates-${{ steps.app-node-version.outputs.version }}
+        name: candidates-${CANDIDATE_VERSION}
         path: dist
 
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v1
-  #   - name: Download build
-  #     uses: actions/download-artifact@v1
-  #     with:
-  #       name: deploy_dist
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Download build
+      uses: actions/download-artifact@v1
+      with:
+        name: candidates-${CANDIDATE_VERSION}
