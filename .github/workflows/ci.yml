@@ -49,4 +49,7 @@ jobs:
       with:
         name: dist
         path: ~/app
+    - name: Build image
+      run: docker build . --file Dockerfile
+      # run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
