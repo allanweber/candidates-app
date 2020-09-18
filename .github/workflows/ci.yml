@@ -1,0 +1,34 @@
+name: Build Angular
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js 12.16
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.16
+    - name: Install dependencies
+      run: npm install
+    - name: Lint
+      run: npm run lint
+    - name: Build DEV
+      if: github.ref != 'refs/heads/master'
+      run: npm run build-dev
+    - name: Build PRD
+      if: github.ref == 'refs/heads/master'
+      run: npm run build-prd
+
+      # - name: Push Build to Releases
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     artifacts: "dist/candidates-app/*"
+      #     token: ${{ secrets.TOKEN }}

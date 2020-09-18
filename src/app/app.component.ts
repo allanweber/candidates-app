@@ -1,3 +1,4 @@
+import { FeedbackMessageService } from './shared/shared/service/feedback-message.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'candidates-app';
+  title = 'Candidates App';
+
+  constructor(private messageService: FeedbackMessageService) {}
+
+  message(): void {
+    this.messageService.showSuccessMessage('Any message');
+  }
 }
