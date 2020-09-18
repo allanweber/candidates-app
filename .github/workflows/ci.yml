@@ -34,8 +34,8 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: npm run build-prd
 
-    # - name: Build image
-    #   run: docker build . --file Dockerfile
+    - name: Build image
+      run: docker build . --file Dockerfile
 
     # - name: Archive artifact
     #   if: success()
