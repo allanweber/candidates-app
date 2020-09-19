@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ master ]
 
-env:
-  CANDIDATE_VERSION: 0.0.0
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,13 +17,6 @@ jobs:
       with:
         node-version: 12.16
 
-    - name: Read app version from package.json
-      uses: culshaw/read-package-node-version-actions@v1
-      id: app-node-version
-
-    - name: Set Version
-      run: echo ::set-env name=CANDIDATE_VERSION::${{ steps.app-node-version.outputs.version }}
-
     - name: Install dependencies
       run: npm install
 
@@ -36,27 +26,62 @@ jobs:
     - name: Build DEV
       if: github.ref != 'refs/heads/master'
       run: npm run build-dev
+      # run: |
+      #   npm run build-dev
+      #   docker build . --file Dockerfile
 
     - name: Build PRD
       if: github.ref == 'refs/heads/master'
       run: npm run build-prd
 
-    - name: Archive artifact
-      if: success()
-      uses: actions/upload-artifact@v1
-      with:
-        name: candidates-$CANDIDATE_VERSION
-        path: dist
+    - name: Build image
+      run: docker build . --file Dockerfile
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - name: Check Version
-      run: echo $CANDIDATE_VERSION
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Download build
-      uses: actions/download-artifact@v1
-      with:
-        name: candidates-$CANDIDATE_VERSION
+    - name: Login to Heroku Container registry
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login
+
+    - name: Build and push
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:push -a candidates-app-dev web
+
+    - name: Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:release -a candidates-app-dev web
+
+    # - name: Archive artifact
+    #   if: success()
+    #   uses: actions/upload-artifact@v1
+    #   with:
+    #     name: dist
+    #     path: dist
+    # - name: Archive NGINX
+    #   if: success()
+    #   uses: actions/upload-artifact@v1
+    #   with:
+    #     name: NGINX
+    #     path: NGINX
+
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #   - name: Checkout
+  #     uses: actions/checkout@v1
+  #   - name: Download build
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: dist
+  #       path: ~/app
+  #   - name: Download NGINX
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: NGINX
+  #       path: ~/nginx
+  #   - name: Build image
+  #     run: docker build . --file Dockerfile
+  #     # run: docker build . --file Dockerfile --tag $IMAGE_NAME
+
