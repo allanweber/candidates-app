@@ -56,17 +56,3 @@ jobs:
       run: |
         heroku container:push -a candidates-app-prd web
         heroku container:release -a candidates-app-prd web
-
-
-    # - name: Push to Heroku
-    #   env:
-    #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-    #     APP_NAME: "candidates-app-dev"
-    #   run:
-
-    # - name: Release Heroku Image
-    #   env:
-    #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-    #     APP_NAME: "candidates-app-dev"
-    #   run: heroku container:release -a $APP_NAME web
-
