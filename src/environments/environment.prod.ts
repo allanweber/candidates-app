@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  candidatesCareer: 'https://candidates-career.herokuapp.com'
 };
