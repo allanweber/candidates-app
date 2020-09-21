@@ -1,25 +1,17 @@
-import { FeedbackMessageService } from './shared/service/feedback-message.service';
-import { Component } from '@angular/core';
-import { CareerHealthService } from './shared/service/career-health.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from './core/service/authentication.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Candidates App';
 
-  constructor(
-    private messageService: FeedbackMessageService,
-    private careerService: CareerHealthService
-  ) {}
+  constructor(private authService: AuthenticationService) {}
 
-  message(): void {
-    this.careerService
-      .getHealth()
-      .subscribe((response) =>
-        this.messageService.showSuccessMessage(response.status)
-      );
+  ngOnInit(): void {
+    this.authService.populate();
   }
 }

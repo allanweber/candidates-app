@@ -1,4 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
+import { CandidatesModule } from './candidates/candidates.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,24 +7,31 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { SharedModule } from './shared/shared.module';
+import { AuthenticationInterceptorService } from './core/interceptors/authentication-interceptor.service';
+import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
     RouterModule.forChild([
-      { path: '**', redirectTo: 'home', pathMatch: 'full' }
+      { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]),
-    SharedModule
+    SharedModule,
+    CandidatesModule,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'pt-BR' }
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptorService,
+      multi: true,
+    },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
