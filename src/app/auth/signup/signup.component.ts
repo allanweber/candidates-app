@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  public messages: string[] = ['message', 'message'];
+  public messages: string[] = [];
 
   public registerForm = this.builder.group(
     {

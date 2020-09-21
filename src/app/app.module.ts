@@ -7,8 +7,8 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { SharedModule } from './shared/shared.module';
-import { AuthenticationInterceptorService } from './core/authentication-interceptor.service';
-import { HttpErrorInterceptor } from './core/http-error-interceptor';
+import { AuthenticationInterceptorService } from './core/interceptors/authentication-interceptor.service';
+import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor';
 
 @NgModule({
   declarations: [AppComponent],

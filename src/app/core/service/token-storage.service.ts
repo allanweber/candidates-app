@@ -1,6 +1,6 @@
-import { RefreshTokenResponse } from '../shared/model/refresh-token-response.model';
-import { LoginResponse } from '../shared/model/login-response.mode';
 import { Injectable } from '@angular/core';
+import { LoginResponse } from '../model/login-response.mode';
+import { RefreshTokenResponse } from '../model/refresh-token-response.model';
 
 const TOKEN_KEY = 'auth-token';
 

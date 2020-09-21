@@ -64,6 +64,6 @@
     <input class="button is-link w-150" type="submit" value="Criar Conta" [disabled]="!registerForm.valid">
     <button class="button is-light is-pulled-right w-150" [routerLink]="['/']">Cancelar</button>
 
-    <app-messages [messages]="messages" title="Erro ao se cadastrar"></app-messages>
+    <app-error-messages [messages]="messages" title="Erro ao se cadastrar"></app-error-messages>
   </div>
 </form>

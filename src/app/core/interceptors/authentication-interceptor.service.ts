@@ -4,7 +4,7 @@ import {
   HttpRequest
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TokenStorageService } from './token-storage.service';
+import { TokenStorageService } from '../service/token-storage.service';
 
 const BEARER = 'Bearer ';
 

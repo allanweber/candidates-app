@@ -1,13 +1,13 @@
-import { RefreshTokenResponse } from './../model/refresh-token-response.model';
-import { LoginResponse } from './../model/login-response.mode';
-import { TokenStorageService } from '../../core/token-storage.service';
-import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { AuthUser } from './../model/auth-user.model';
+import { AuthUser } from '../model/auth-user.model';
+import { LoginResponse } from '../model/login-response.mode';
+import { RefreshTokenResponse } from '../model/refresh-token-response.model';
+import { environment } from './../../../environments/environment';
+import { TokenStorageService } from './token-storage.service';
 
 @Injectable({
   providedIn: 'root',

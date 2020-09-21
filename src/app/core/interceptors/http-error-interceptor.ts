@@ -3,15 +3,16 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { FeedbackMessageService } from './../../shared/service/feedback-message.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private feedbackMessage: FeedbackMessageService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -30,7 +31,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             errorMessage = response.error.message.replace(response.status, '');
           }
         }
-        alert(errorMessage);
+        this.feedbackMessage.showErrorMessage(errorMessage);
         return throwError(response);
       })
     );

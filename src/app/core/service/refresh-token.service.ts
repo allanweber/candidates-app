@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject, timer } from 'rxjs';
 import { mergeMap, takeUntil } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
-import { TokenStorageService } from '../../core/token-storage.service';
+import { TokenStorageService } from './token-storage.service';
 
 const MILES = 1000;
 const SIXTY = 60;

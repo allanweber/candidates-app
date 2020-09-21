@@ -1,4 +1,4 @@
-import { AuthenticationService } from './../../shared/service/authentication.service';
+import { AuthenticationService } from '../../core/service/authentication.service';
 import { FeedbackMessageService } from './../../shared/service/feedback-message.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
