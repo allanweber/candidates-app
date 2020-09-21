@@ -1,0 +1,69 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+
+  <div class="centralized-500">
+    <div class="field">
+      <label class="label">Nome</label>
+      <div class="control">
+        <input class="input" placeholder="Nome" name="firstName" type="text" formControlName="firstName" #firstName
+          required [ngClass]="{'is-danger': isInvalid('firstName')}" (change)="setUsername()">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('firstName')">Nome é inválido</p>
+    </div>
+
+    <div class="field">
+      <label class="label">Sobrenome</label>
+      <div class="control">
+        <input class="input" placeholder="Sobrenome" name="lastName" type="text" formControlName="lastName" #lastName
+          required [ngClass]="{'is-danger': isInvalid('lastName')}" (change)="setUsername()">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('lastName')">Sobrenome é inválido</p>
+    </div>
+
+    <div class="field">
+      <label class="label">Nome de usuário</label>
+      <div class="control">
+        <input class="input" placeholder="Nome de usuário" name="userName" type="text" formControlName="userName"
+          #userName required [ngClass]="{'is-danger': isInvalid('userName')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('userName')">Nome de usuário é inválido</p>
+    </div>
+
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input" placeholder="Email" name="email" type="email" formControlName="email" #email required
+          [ngClass]="{'is-danger': isInvalid('email')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
+    </div>
+
+    <div class="field">
+      <label class="label">Senha</label>
+      <div class="control">
+        <input class="input" placeholder="Senha" name="password" type="password" formControlName="password" #password
+          required [ngClass]="{'is-danger': isInvalid('password')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('password')">Senha é inválida</p>
+    </div>
+
+    <div class="field">
+      <label class="label">Confirmação da Senha</label>
+      <div class="control">
+        <input class="input" placeholder="Confirmação da senha" name="confirmPassword" type="password"
+          formControlName="confirmPassword" #confirmPassword required
+          [ngClass]="{'is-danger': isInvalid('confirmPassword')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('confirmPassword')">Confirmação da Senha e Senha devem ser iguais</p>
+    </div>
+
+    <div class="notification is-warning">
+      A senha deve ter no mínimo 10 caracteres sendo que pelo menos 1 letra maiúscula, 1 letra minúscula, 1 número e 1
+      caractere especial (!@&%#$ etc...)
+    </div>
+
+    <input class="button is-link w-150" type="submit" value="Criar Conta" [disabled]="!registerForm.valid">
+    <button class="button is-light is-pulled-right w-150" [routerLink]="['/']">Cancelar</button>
+
+    <app-messages [messages]="messages" title="Erro ao se cadastrar"></app-messages>
+  </div>
+</form>

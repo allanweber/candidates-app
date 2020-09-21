@@ -1,0 +1,25 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+
+  <div class="centralized-500">
+    <div class="field">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input" placeholder="Email" name="email" type="email" formControlName="email" #email required
+          [ngClass]="{'is-danger': isInvalid('email')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
+    </div>
+
+    <div class="field">
+      <label class="label">Senha</label>
+      <div class="control">
+        <input class="input" placeholder="Senha" name="password" type="password" formControlName="password" required
+          [ngClass]="{'is-danger': isInvalid('password')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('password')">Senha é invalida</p>
+    </div>
+
+    <input class="button is-link w-150" type="submit" value="Entrar" [disabled]="!loginForm.valid">
+    <button class="button is-light is-pulled-right w-150" [routerLink]="['/auth/signUp']">Criar Conta</button>
+  </div>
+</form>
