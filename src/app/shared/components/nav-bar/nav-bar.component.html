@@ -1,31 +1,32 @@
-<div class="hero-head">
-  <nav class="navbar" *ngIf="showNav">
-    <div class="container">
-      <div class="navbar-brand">
-        <a class="navbar-item" [routerLink]="['/']">
-          <!-- <img src="https://bulma.io/images/bulma-type.png" alt="Logo"> -->
-          <p>Career App</p>
+<nav class="navbar" *ngIf="showNav">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" [routerLink]="['/']">
+        <!-- <img src="https://bulma.io/images/bulma-type.png" alt="Logo"> -->
+        <p>Career App</p>
+      </a>
+      <span class="navbar-burger burger" data-target="navbarMenuHeroB" onclick="toggleBurger()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </div>
+    <div id="navbarMenuHeroB" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" [routerLink]="['/candidates']" routerLinkActive="is-active">
+          Candidatos
         </a>
-        <span class="navbar-burger burger" data-target="navbarMenuHeroB">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </div>
-      <div id="navbarMenuHeroB" class="navbar-menu">
-        <div class="navbar-end">
-          <a class="navbar-item" [routerLink]="['/candidates']" routerLinkActive="is-active">
-            Candidatos
-          </a>
-          <!-- <a class="navbar-item">
+        <a class="navbar-item" [routerLink]="['/vacancies']" routerLinkActive="is-active">
+          Vagas
+        </a>
+        <!-- <a class="navbar-item">
             Examples
           </a> -->
-          <span class="navbar-item">
-            {{userName}}
-          </span>
-          <a class="navbar-item" (click)="logout()">Sair</a>
-        </div>
+        <span class="navbar-item">
+          {{userName}}
+        </span>
+        <a class="navbar-item" (click)="logout()">Sair</a>
       </div>
     </div>
-  </nav>
-</div>
+  </div>
+</nav>

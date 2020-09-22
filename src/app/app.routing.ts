@@ -11,7 +11,13 @@ const routes: Routes = [
   {
     path: 'candidates',
     loadChildren: () =>
-      import('./candidates/candidates.module').then((m) => m.CandidatesModule),
+      import('./modules/candidate/candidate.module').then((m) => m.CandidateModule),
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'vacancies',
+    loadChildren: () =>
+      import('./modules/vacancy/vacancy.module').then((m) => m.VacancyModule),
     canActivate: [AuthGuardService],
   },
 ];

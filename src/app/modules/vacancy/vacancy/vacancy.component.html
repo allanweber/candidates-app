@@ -1,0 +1,50 @@
+<form [formGroup]="vacancyForm" (ngSubmit)="save()">
+
+  <div class="centralized-500">
+    <div class="field">
+      <label class="label">Nome</label>
+      <div class="control">
+        <input class="input" placeholder="Nome da vaga" name="name" type="text" formControlName="name" #name required
+          [ngClass]="{'is-danger': isInvalid('name')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('name')">Nome é inválido</p>
+    </div>
+
+    <div formArrayName="skills" *ngFor="let item of getControls(); let i = index;">
+      <div [formGroupName]="i">
+
+        <div class="field is-horizontal mt-2">
+          <div class="field-label is-normal">
+            <label class="label">Skill</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded has-icons-right">
+                <input class="input" placeholder="Skill" name="name" type="text" formControlName="name" #skillName
+                  required>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control is-expanded has-icons-left has-icons-right">
+                <button class="button is-rounded is-link is-small mt-1" type="button" (click)="addItem()" title="Adicionar"><i class="fa fa-plus-square"></i></button>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control is-expanded has-icons-left has-icons-right">
+                <button class="button is-rounded is-danger is-small mt-1" type="button" (click)="removeItem(i)" title="Remover"><i class="fa fa-minus-square"></i></button>
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mt-2">
+      <input class="button is-link w-150" type="submit" value="Salvar" [disabled]="!vacancyForm.valid">
+      <button class="button is-light is-pulled-right w-150" [routerLink]="['/vacancies']">Cancelar</button>
+    </div>
+
+    <app-error-messages [messages]="messages" title="Erro ao se cadastrar"></app-error-messages>
+  </div>
+</form>

@@ -1,4 +1,4 @@
-import { CandidatesRoutingModule } from './candidates.routing';
+import { CandidateRoutingModule } from './candidate.routing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { CandidatesListComponent } from './candidates-list/candidates-list.compo
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CandidatesRoutingModule,
+    CandidateRoutingModule,
   ],
 })
-export class CandidatesModule {}
+export class CandidateModule {}

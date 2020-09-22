@@ -1,0 +1,21 @@
+<div class="buttons has-addons">
+  <button class="button is-link w-150" [routerLink]="['/vacancies/adicionar']">Adicionar Vaga</button>
+</div>
+<table class="table is-striped is-hoverable is-fullwidth">
+  <thead>
+    <th>Nome da vaga</th>
+    <th>Skills</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vacancy of vacancies$ | async">
+      <td>
+        <a [routerLink]="['/vacancies/', vacancy.id, 'editar']"><strong>{{vacancy.name}}</strong></a>
+      </td>
+      <td>
+        <span *ngFor="let skill of vacancy.skills">
+          {{skill.name}}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
