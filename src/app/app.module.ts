@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
-import { CandidatesModule } from './candidates/candidates.module';
 import { AuthenticationInterceptorService } from './core/interceptors/authentication-interceptor.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor';
 import { SharedModule } from './shared/shared.module';
@@ -23,7 +22,6 @@ import { SharedModule } from './shared/shared.module';
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]),
     SharedModule,
-    CandidatesModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
