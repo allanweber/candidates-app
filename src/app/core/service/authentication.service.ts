@@ -13,6 +13,7 @@ import { TokenStorageService } from './token-storage.service';
   providedIn: 'root',
 })
 export class AuthenticationService {
+
   private currentUserSubject = new BehaviorSubject<AuthUser>({} as AuthUser);
   public currentUser = this.currentUserSubject
     .asObservable()

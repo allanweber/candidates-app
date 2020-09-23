@@ -1,0 +1,18 @@
+<form [formGroup]="rememberForm" (ngSubmit)="enviar()">
+
+  <div class="centralized-500">
+    <div class="field">
+      <label class="label">Email para enviar um link para trocar a senha</label>
+      <div class="control">
+        <input class="input" placeholder="Email" name="email" type="email" formControlName="email" #email required
+          [ngClass]="{'is-danger': isInvalid('email')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
+    </div>
+
+    <input class="button is-link w-150" type="submit" value="Entrar" [disabled]="!rememberForm.valid">
+    <button class="button is-light is-pulled-right w-150" [routerLink]="['/auth/signIn']">Cancelar</button>
+
+    <app-error-messages [messages]="messages" title="Erro ao trocar senha"></app-error-messages>
+  </div>
+</form>
