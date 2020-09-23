@@ -19,7 +19,17 @@
       <p class="help is-danger" *ngIf="isInvalid('password')">Senha é invalida</p>
     </div>
 
-    <input class="button is-link w-150" type="submit" value="Entrar" [disabled]="!loginForm.valid">
-    <button class="button is-light is-pulled-right w-150" [routerLink]="['/auth/signUp']">Criar Conta</button>
+    <div class="columns">
+      <div class="column is-one-third">
+        <input class="button is-link w-150" type="submit" value="Entrar" [disabled]="!loginForm.valid">
+      </div>
+      <div class="column">
+        <button class="button is-light w-150" [routerLink]="['/auth/signUp']">Criar Conta</button>
+      </div>
+      <div class="column">
+        <button class="button is-light w-150" [routerLink]="['/auth/remember-me']">Lembre me</button>
+      </div>
+    </div>
+
   </div>
 </form>
