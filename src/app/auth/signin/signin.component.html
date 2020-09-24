@@ -4,7 +4,7 @@
     <div class="field">
       <label class="label">Email</label>
       <div class="control">
-        <input class="input" placeholder="Email" name="email" type="email" formControlName="email" #email required
+        <input class="input" placeholder="Email" name="email" type="email" formControlName="email" #email required autocomplete="off"
           [ngClass]="{'is-danger': isInvalid('email')}">
       </div>
       <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
@@ -13,7 +13,7 @@
     <div class="field">
       <label class="label">Senha</label>
       <div class="control">
-        <input class="input" placeholder="Senha" name="password" type="password" formControlName="password" required
+        <input class="input" placeholder="Senha" name="password" type="password" formControlName="password" required autocomplete="off"
           [ngClass]="{'is-danger': isInvalid('password')}">
       </div>
       <p class="help is-danger" *ngIf="isInvalid('password')">Senha é invalida</p>
@@ -27,7 +27,7 @@
         <button class="button is-light w-150" [routerLink]="['/auth/signUp']">Criar Conta</button>
       </div>
       <div class="column">
-        <button class="button is-light w-150" [routerLink]="['/auth/remember-me']">Lembre me</button>
+        <button class="button is-light w-150" [routerLink]="['/auth/remember-me']">Esqueci a senha</button>
       </div>
     </div>
 

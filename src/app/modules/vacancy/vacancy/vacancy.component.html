@@ -4,7 +4,7 @@
     <div class="field">
       <label class="label">Nome</label>
       <div class="control">
-        <input class="input" placeholder="Nome da vaga" name="name" type="text" formControlName="name" #name required
+        <input class="input" placeholder="Nome da vaga" name="name" type="text" formControlName="name" #name required autocomplete="off"
           [ngClass]="{'is-danger': isInvalid('name')}">
       </div>
       <p class="help is-danger" *ngIf="isInvalid('name')">Nome é inválido</p>
@@ -21,7 +21,7 @@
             <div class="field">
               <p class="control is-expanded has-icons-right">
                 <input class="input" placeholder="Skill" name="name" type="text" formControlName="name" #skillName
-                  required>
+                  required autocomplete="off">
               </p>
             </div>
             <div class="field">
