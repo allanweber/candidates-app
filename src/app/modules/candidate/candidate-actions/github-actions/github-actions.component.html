@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-content">
+    <p class="title is-5">
+      Github
+    </p>
+    <p class="subtitle is-5" [ngStyle]="{'color': getGitAccessColor()}">
+      {{getGitStatusTranslated()}}
+      <span *ngIf="getGitAccessStatus() === 'ERROR'"> - <a (click)="toggleModal()">ver erro</a></span>
+    </p>
+  </div>
+  <div class="modal" [ngClass]="{'is-active': showErrorModal}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="notification">
+        {{getGitAccessErro()}}
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
+  </div>
+  <footer class="card-footer">
+    <p class="card-footer-item">
+      <button class="button is-link w-150 is-small" (click)="access()">Solicitar Acesso</button>
+    </p>
+  </footer>
+</div>

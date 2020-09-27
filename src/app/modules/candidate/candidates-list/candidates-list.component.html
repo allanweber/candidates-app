@@ -1,1 +1,33 @@
-<p>candidates-list works!</p>
+<div class="buttons has-addons">
+  <button class="button is-link" [routerLink]="['/candidates/adicionar']">Adicionar Candidato</button>
+</div>
+<table class="table is-striped is-hoverable is-fullwidth">
+  <thead>
+    <th>Nome do Candidato</th>
+    <th>Email</th>
+    <th>Localização</th>
+    <th>Empresa Atual</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let candidate of candidates$ | async">
+      <td>
+        <a [routerLink]="['/candidates/', candidate.id, 'candidate']"><strong>{{candidate.name}}</strong></a>
+      </td>
+      <td>
+        <span>
+          {{candidate.email}}
+        </span>
+      </td>
+      <td>
+        <span>
+          {{candidate.location}}
+        </span>
+      </td>
+      <td>
+        <span>
+          {{candidate.currentCompany}}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>

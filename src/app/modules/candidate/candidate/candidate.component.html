@@ -1,0 +1,73 @@
+<div class="columns">
+  <div class="column is-three-quarters">
+    <div class="card">
+      <div class="card-content">
+        <form [formGroup]="candidateForm" (ngSubmit)="save()">
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Nome</label>
+                <div class="control">
+                  <input class="input" placeholder="Nome da vaga" name="name" type="text" formControlName="name" #name
+                    required autocomplete="off" [ngClass]="{'is-danger': isInvalid('name')}">
+                </div>
+                <p class="help is-danger" *ngIf="isInvalid('name')">Nome é inválido</p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input class="input" placeholder="Email" name="email" type="email" formControlName="email" #email
+                    required autocomplete="off" [ngClass]="{'is-danger': isInvalid('email')}">
+                </div>
+                <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Localização</label>
+                <div class="control">
+                  <input class="input" placeholder="Localização" name="location" type="text" formControlName="location"
+                    #location required autocomplete="off" [ngClass]="{'is-danger': isInvalid('location')}">
+                </div>
+                <p class="help is-danger" *ngIf="isInvalid('location')">Localização é inválida</p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Empresa atual</label>
+                <div class="control">
+                  <input class="input" placeholder="Empresa atual" name="currentCompany" type="text"
+                    formControlName="currentCompany" #currentCompany autocomplete="off">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Biografia</label>
+            <div class="control">
+              <textarea class="textarea" placeholder="Biografia" name="bio" type="text" formControlName="bio" #bio
+                required autocomplete="off" [ngClass]="{'is-danger': isInvalid('bio')}" rows="2"></textarea>
+            </div>
+            <p class="help is-danger" *ngIf="isInvalid('bio')">Biografia é inválida</p>
+          </div>
+
+          <div class="mt-2">
+            <input class="button is-link w-150" type="submit" value="Salvar" [disabled]="!candidateForm.valid">
+            <button class="button is-light is-pulled-right w-150" [routerLink]="['/candidates']">Cancelar</button>
+          </div>
+
+          <app-error-messages [messages]="messages" title="Erro ao se cadastrar"></app-error-messages>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+    <app-candidate-actions *ngIf="candidate" [candidate]="candidate"></app-candidate-actions>
+  </div>
+</div>

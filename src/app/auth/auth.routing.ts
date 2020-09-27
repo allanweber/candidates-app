@@ -5,6 +5,8 @@ import { EmailVerifiedComponent } from './email-verified/email-verified.componen
 import { RememberMeComponent } from './remember-me/remember-me.component';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
+import { SocialDeniedComponent } from './social-authorization/social-denied/social-denied.component';
+import { SocialGrantedComponent } from './social-authorization/social-granted/social-granted.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'signIn', pathMatch: 'full' },
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: 'email-verified', component: EmailVerifiedComponent },
   { path: 'remember-me', component: RememberMeComponent },
   { path: 'change-password/:hash', component: ChangePasswordComponent },
+  { path: 'social-granted', component: SocialGrantedComponent },
+  { path: 'social-denied', component: SocialDeniedComponent },
 ];
 
 @NgModule({
