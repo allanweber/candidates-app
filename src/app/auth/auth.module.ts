@@ -12,13 +12,21 @@ import { SocialGrantedComponent } from './social-authorization/social-granted/so
 import { SocialDeniedComponent } from './social-authorization/social-denied/social-denied.component';
 
 @NgModule({
-  declarations: [SigninComponent, SignupComponent, EmailVerifiedComponent, RememberMeComponent, ChangePasswordComponent, SocialGrantedComponent, SocialDeniedComponent],
+  declarations: [
+    SigninComponent,
+    SignupComponent,
+    EmailVerifiedComponent,
+    RememberMeComponent,
+    ChangePasswordComponent,
+    SocialGrantedComponent,
+    SocialDeniedComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AuthRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}
