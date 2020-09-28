@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-content">
+    <p class="title is-5">
+      Foto
+    </p>
+    <img *ngIf="image; else noImage" [src]="image">
+    <ng-template #noImage>
+      <p>Candidato sem foto</p>
+    </ng-template>
+  </div>
+  <div>
+
+  </div>
+</div>

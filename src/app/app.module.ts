@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AuthenticationInterceptorService } from './core/interceptors/authentication-interceptor.service';
 import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor';
+import { MessagingService } from './core/service/messaging.service';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { SharedModule } from './shared/shared.module';
       multi: true,
     },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
+    MessagingService
   ],
   bootstrap: [AppComponent],
 })
