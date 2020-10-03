@@ -1,5 +1,5 @@
 import { MessagingService } from './../../../core/service/messaging.service';
-import { Candidate } from './../model/candidate.mode';
+import { Candidate } from '../model/candidate.model';
 import { take } from 'rxjs/operators';
 import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
 import { FormBuilder, Validators } from '@angular/forms';

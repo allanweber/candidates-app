@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
-import { Candidate } from '../../model/candidate.mode';
+import { Candidate } from '../../model/candidate.model';
 import { MessagingService } from './../../../../core/service/messaging.service';
 import { FeedbackMessageService } from './../../../../shared/service/feedback-message.service';
 import { CandidatesService } from './../../service/candidates.service';

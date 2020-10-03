@@ -1,0 +1,12 @@
+<h3 class="title is-4">Aqui você pode atualizar seu perfil para a vaga: <a class="is-link"
+    (click)="toggleModal()">{{vacancy?.name}}</a></h3>
+<div class="modal" [ngClass]="{'is-active': showErrorModal}">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <div class="notification">
+      <app-vacancy-view [vacancy]="vacancy"></app-vacancy-view>
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
+</div>
+<app-candidate-profile-form [profile]="profile" (changed)="save($event)"></app-candidate-profile-form>

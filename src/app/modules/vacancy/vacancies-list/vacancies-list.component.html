@@ -4,6 +4,7 @@
 <table class="table is-striped is-hoverable is-fullwidth">
   <thead>
     <th>Nome da vaga</th>
+    <th>Descrição</th>
     <th>Skills</th>
   </thead>
   <tbody>
@@ -12,9 +13,12 @@
         <a [routerLink]="['/vacancies/', vacancy.id, 'editar']"><strong>{{vacancy.name}}</strong></a>
       </td>
       <td>
-        <span *ngFor="let skill of vacancy.skills">
-          {{skill.name}}
-        </span>
+        <span>{{vacancy.description | sliceKeepLastWord:50}}</span>
+      </td>
+      <td>
+        <div class="tags">
+          <span class="tag is-success" *ngFor="let skill of vacancy.skills.slice(0,4)">{{skill.name}}</span>
+        </div>
       </td>
     </tr>
   </tbody>

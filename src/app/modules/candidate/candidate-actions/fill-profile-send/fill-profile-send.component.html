@@ -1,0 +1,66 @@
+<div class="card">
+  <div class="card-content">
+    <p class="title is-5">
+      Enviar solicitação para completar o perfil
+    </p>
+    <p>
+      Você pode enviar uma solicitação para o candidato completar o perfil, para uma vaga específica.
+    </p>
+    <div class="mt-1">
+      <app-vacancies-dropdown emptyOption="Selecione uma vaga para enviar ao candidato"
+        (changed)="vacancyChanged($event)"></app-vacancies-dropdown>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <p class="card-footer-item">
+      <button class="button is-link is-pulled-right" [disabled]="!vacancy" (click)="send()">Enviar para o
+        candidato</button>
+    </p>
+  </footer>
+</div>
+<div class="card">
+  <div class="card-content">
+    <p class="title is-5">
+      Solicitações enviadas
+    </p>
+    <table class="table is-striped is-hoverable is-fullwidth">
+      <thead>
+        <th>Vaga</th>
+        <th>Status</th>
+        <th>Erro</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let register of registers$ | async">
+          <td>
+            <a [routerLink]="['/vacancies/', register.vacancy.id, 'editar']"><strong>{{register.vacancy.name}}</strong></a>
+          </td>
+          <td>
+            <span [ngStyle]="{'color': getStatusColor(register)}">
+              {{register.status}}
+            </span>
+          </td>
+          <td>
+            <a (click)="toggleModal()">
+              {{register.error | sliceKeepLastWord:20}}
+            </a>
+            <div class="modal" [ngClass]="{'is-active': showErrorModal}">
+              <div class="modal-background"></div>
+              <div class="modal-content">
+                <div class="notification">
+                  {{register.error}}
+                </div>
+              </div>
+              <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="canTryAgain(register)">
+              <button class="button is-link is-pulled-right is-small" (click)="sendAgain(register.vacancy.id)">Enviar novamente</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -3,9 +3,9 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Vacancy } from '../model/vacancy.model';
-import { VacanciesService } from '../service/vacancies.service';
+import { VacanciesService } from '../../../shared/service/vacancies.service';
 import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
-import { Skill } from './../model/skill.model';
+import { Skill } from '../../../shared/model/skill.model';
 
 @Component({
   selector: 'app-vacancy',
@@ -20,6 +20,7 @@ export class VacancyComponent implements OnInit {
   public vacancyForm = this.builder.group({
     id: [''],
     name: ['', [Validators.required, Validators.minLength(5)]],
+    description: ['', [Validators.required, Validators.minLength(5)]],
     skills: this.builder.array([]),
   });
 
@@ -62,6 +63,9 @@ export class VacancyComponent implements OnInit {
   removeItem(i: number): void {
     this.items = this.vacancyForm.get('skills') as FormArray;
     this.items.removeAt(i);
+    if (this.items.length < 1) {
+      this.addItem();
+    }
   }
 
   addItem(): void {
@@ -79,6 +83,7 @@ export class VacancyComponent implements OnInit {
     const formData = {
       id: response.id,
       name: response.name,
+      description: response.description,
     };
     this.vacancyForm.patchValue(formData);
     this.loadSkills(response.skills);

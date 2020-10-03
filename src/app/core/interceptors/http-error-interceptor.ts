@@ -28,10 +28,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       }),
       catchError((response: HttpErrorResponse) => {
         let errorMessage = response.statusText;
-        if (response.status === 401 || response.status === 403) {
+        if (response.status === 401) {
           this.feedbackMessage.showErrorMessage('Invalid credentials');
           this.authenticationService.logout();
         } else if (response.status === 404) {
+          return throwError(response);
+        } else if (response.status === 403) {
           return throwError(response);
         } else {
           if (response.error && response.error.message) {

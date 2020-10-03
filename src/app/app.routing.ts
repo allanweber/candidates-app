@@ -20,6 +20,10 @@ const routes: Routes = [
       import('./modules/vacancy/vacancy.module').then((m) => m.VacancyModule),
     canActivate: [AuthGuardService],
   },
+  {
+    path: 'candidate-register',
+    loadChildren: () => import('./modules/candidate-register/candidate-register.module').then((m) => m.CandidateRegisterModule),
+  }
 ];
 
 @NgModule({

@@ -10,6 +10,15 @@
       <p class="help is-danger" *ngIf="isInvalid('name')">Nome é inválido</p>
     </div>
 
+    <div class="field">
+      <label class="label">Descrição</label>
+      <div class="control">
+        <textarea class="textarea" placeholder="Descrição" name="description" type="text" formControlName="description" #description
+          required autocomplete="off" [ngClass]="{'is-danger': isInvalid('description')}" rows="4"></textarea>
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('description')">Descrição é inválida</p>
+    </div>
+
     <div formArrayName="skills" *ngFor="let item of getControls(); let i = index;">
       <div [formGroupName]="i">
 

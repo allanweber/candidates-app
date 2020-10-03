@@ -1,0 +1,169 @@
+<div class="card">
+  <div class="card-content">
+    <form [formGroup]="candidateForm">
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <label class="label">Nome</label>
+            <div class="control">
+              <input class="input" placeholder="Nome" type="text" formControlName="name" required autocomplete="off"
+                [ngClass]="{'is-danger': isInvalid('name')}">
+            </div>
+            <p class="help is-danger" *ngIf="isInvalid('name')">Nome é inválido</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field">
+            <label class="label">Localização</label>
+            <div class="control">
+              <input class="input" placeholder="Localização" type="text" formControlName="location" required
+                autocomplete="off" [ngClass]="{'is-danger': isInvalid('location')}">
+            </div>
+            <p class="help is-danger" *ngIf="isInvalid('location')">Localização é inválida</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Biografia</label>
+        <div class="control">
+          <textarea class="textarea" placeholder="Biografia" type="text" formControlName="bio" required
+            autocomplete="off" [ngClass]="{'is-danger': isInvalid('bio')}" rows="2"></textarea>
+        </div>
+        <p class="help is-danger" *ngIf="isInvalid('bio')">Biografia é inválida</p>
+      </div>
+
+      <div formArrayName="experiences" *ngFor="let item of getControls(); let experienceIndex = index;">
+        <div [formGroupName]="experienceIndex">
+
+          <div class="card">
+            <div class="card-content">
+
+              <div class="columns">
+                <div class="column">
+                  <div class="field">
+                    <label class="label">Nome da empresa</label>
+                    <div class="control">
+                      <input class="input" placeholder="Nome da empresa" type="text" formControlName="companyName" #companyName id="company-{{experienceIndex}}"
+                        required autocomplete="off" [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'companyName')}">
+                    </div>
+                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'companyName')">Nome da empresa é inválida</p>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label">Localização da empresa</label>
+                    <div class="control">
+                      <input class="input" placeholder="Localização da empresa" type="text"
+                        formControlName="companyLocation" required autocomplete="off"
+                        [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'companyLocation')}">
+                    </div>
+                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'companyLocation')">Localização da empresa é
+                      inválida
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="columns">
+                <div class="column is-half">
+                  <div class="field">
+                    <label class="label">Posição/Cargo</label>
+                    <div class="control">
+                      <input class="input" placeholder="Posição/Cargo" type="text" formControlName="position" required
+                        autocomplete="off" [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'position')}">
+                    </div>
+                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'position')">Posição/Cargo é
+                      inválido
+                    </p>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label">Data de início</label>
+                    <div class="control">
+                      <input class="input" placeholder="Data de início" type="date" formControlName="start" required
+                        autocomplete="off" [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'start')}">
+                    </div>
+                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'start')">Data de início é inválida</p>
+                  </div>
+                </div>
+                <div class="column">
+                  <div class="field">
+                    <label class="label">Data de saída</label>
+                    <div class="control">
+                      <input class="input" placeholder="Data de saída" type="date" formControlName="end"
+                        autocomplete="off" [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'end')}">
+                    </div>
+                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'end')">Data de saída é
+                      inválida
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">Descrição das atividades</label>
+                <div class="control">
+                  <textarea class="textarea" placeholder="Descrição das atividades" type="text"
+                    formControlName="description" required autocomplete="off"
+                    [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'description')}" rows="3"></textarea>
+                </div>
+                <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'description')">Descrição das atividades é inválida</p>
+              </div>
+
+              <div class="columns">
+                <div class="column is-one-quarter">
+                  <div class="field has-addons">
+                    <div class="control">
+                      <input class="input" placeholder="Habilidade" type="text" autocomplete="off" #skillName (keyup.enter)="addSkill(experienceIndex, skillName)">
+                    </div>
+                    <div class="control">
+                      <button class="button is-link" type="button" title="Adicionar" (click)="addSkill(experienceIndex, skillName)">Adicionar</button>
+                    </div>
+                  </div>
+                  <p class="help is-info">Clique no botão ou Enter</p>
+                  <p class="help is-info">Adicione várias separadas por <strong>,</strong> ou <strong>;</strong></p>
+                </div>
+                <div class="column">
+                  <div class="tags has-addons are-large">
+                    <span class="tag is-success ml-1"
+                      *ngFor="let skill of getSkills(experienceIndex); let skillIndex = index;">{{skill.name}}
+                      <button class="delete is-small" type="button" (click)="removeSkill(experienceIndex, skill.name)"></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <footer class="card-footer">
+              <a class="card-footer-item" (click)="removeExperience(experienceIndex)">Remover</a>
+            </footer>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <footer class="card-footer">
+          <button class="button is-light card-footer-item" type="button" (click)="addExperience()">Adicionar Experiência</button>
+        </footer>
+      </div>
+
+    </form>
+  </div>
+  <div class="card-footer">
+    <button class="button is-link card-footer-item is-medium" value="Salvar" type="button" (click)="save()"
+      [disabled]="!candidateForm.valid">Salvar Perfil</button>
+  </div>
+</div>
+
+
+<div class="columns">
+  <div class="column">
+
+  </div>
+  <div class="column">
+
+  </div>
+</div>
