@@ -2,7 +2,7 @@ import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { CandidatesService } from './../service/candidates.service';
 import { Component, OnInit } from '@angular/core';
-import { Candidate } from '../model/candidate.mode';
+import { Candidate } from '../model/candidate.model';
 
 @Component({
   selector: 'app-candidates-list',

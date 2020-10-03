@@ -12,6 +12,7 @@ import { CandidateImageComponent } from './candidate-actions/candidate-image/can
 import { ResumeComponent } from './candidate-actions/resume/resume.component';
 import { SocialNetworksComponent } from './candidate-actions/social-networks/social-networks.component';
 import { RepositoriesComponent } from './candidate-actions/repositories/repositories.component';
+import { FillProfileSendComponent } from './candidate-actions/fill-profile-send/fill-profile-send.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RepositoriesComponent } from './candidate-actions/repositories/reposito
     ResumeComponent,
     SocialNetworksComponent,
     RepositoriesComponent,
+    FillProfileSendComponent,
   ],
   imports: [
     CommonModule,

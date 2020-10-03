@@ -1,9 +1,10 @@
-import { ResumeResponse } from './../../../shared/model/resume-response.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { Candidate } from '../model/candidate.mode';
+import { Candidate } from '../model/candidate.model';
+import { CandidateRegisterResponse } from './../../../shared/model/candidate-register-response.model';
+import { ResumeResponse } from './../../../shared/model/resume-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -74,6 +75,24 @@ export class CandidatesService {
     return this.http.post<ResumeResponse>(
       `${this.serverUrl}/candidates/${candidateId}/resume-upload`,
       formData
+    );
+  }
+
+  sendRegisterRequest(
+    candidateId: string,
+    vacancyId: string
+  ): Observable<CandidateRegisterResponse> {
+    return this.http.post<CandidateRegisterResponse>(
+      `${this.serverUrl}/candidates/${candidateId}/send-register/${vacancyId}`,
+      {}
+    );
+  }
+
+  getCandidateRegisters(
+    candidateId: string
+  ): Observable<CandidateRegisterResponse[]> {
+    return this.http.get<CandidateRegisterResponse[]>(
+      `${this.serverUrl}/candidates/${candidateId}/registers`
     );
   }
 }

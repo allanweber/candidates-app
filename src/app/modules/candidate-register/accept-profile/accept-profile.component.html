@@ -1,0 +1,27 @@
+<div class="notification">
+
+  <h1 class="is-size-3">Compartilhamento de perfil.</h1>
+
+  <p class="mt-3">
+    Obrigado por aceitar compartilhar seu perfil com o recrutador
+  </p>
+
+  <p class="mt-3">
+    Insira abaixo o código recebido por email
+  </p>
+
+  <form [formGroup]="validateForm" (ngSubmit)="login()" class="mt-2">
+    <div class="">
+      <div class="field has-addons">
+        <div class="control">
+          <input class="input is-medium" placeholder="Código recebido por email" name="code" type="text"
+            formControlName="code" #code required autocomplete="off" [ngClass]="{'is-danger': isInvalid('code')}">
+        </div>
+        <div class="control">
+          <input class="button is-link w-150 is-medium" type="submit" value="Entrar" [disabled]="!validateForm.valid">
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

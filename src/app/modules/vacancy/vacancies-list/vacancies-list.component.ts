@@ -1,6 +1,6 @@
 import { take } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { VacanciesService } from './../service/vacancies.service';
+import { VacanciesService } from '../../../shared/service/vacancies.service';
 import { Component, OnInit } from '@angular/core';
 import { Vacancy } from '../model/vacancy.model';
 

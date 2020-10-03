@@ -1,4 +1,4 @@
-import { Candidate } from './../../model/candidate.mode';
+import { Candidate } from '../../model/candidate.model';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
