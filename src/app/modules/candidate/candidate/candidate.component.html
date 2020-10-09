@@ -25,14 +25,24 @@
                 <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
               </div>
             </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Telefone</label>
+                <div class="control">
+                  <input class="input" placeholder="(55)-55555-5555" type="text" formControlName="phone" required mask="(00) 00000-0000"
+                    autocomplete="off" [ngClass]="{'is-danger': isInvalid('phone')}">
+                </div>
+                <p class="help is-danger" *ngIf="isInvalid('phone')">Telefone é inválido</p>
+              </div>
+            </div>
           </div>
 
           <div class="columns">
             <div class="column">
               <div class="field">
-                <label class="label">Localização</label>
+                <label class="label">Mora em</label>
                 <div class="control">
-                  <input class="input" placeholder="Localização" type="text" formControlName="location" readonly>
+                  <input class="input" placeholder="Mora em" type="text" formControlName="location" readonly>
                 </div>
               </div>
             </div>

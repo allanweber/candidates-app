@@ -5,6 +5,7 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { AuthenticationInterceptorService } from './core/interceptors/authentication-interceptor.service';
@@ -13,6 +14,7 @@ import { MessagingService } from './core/service/messaging.service';
 import { SharedModule } from './shared/shared.module';
 
 registerLocaleData(localePt);
+export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +28,7 @@ registerLocaleData(localePt);
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ]),
     SharedModule,
+    NgxMaskModule.forRoot(),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
