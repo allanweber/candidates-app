@@ -4,9 +4,11 @@ export class Candidate {
   id: string;
   name: string;
   email: string;
+  phone: string;
   location: string;
   bio: string;
   currentCompany: string;
   socialNetwork: SocialNetwork[];
   socialEntries: SocialEntry[];
+  lastUpdate: Date;
 }

@@ -19,6 +19,7 @@ export class CandidateComponent implements OnInit {
   public candidateForm = this.builder.group({
     id: [''],
     name: ['', [Validators.required, Validators.minLength(5)]],
+    phone: ['', [Validators.required, Validators.minLength(10)]],
     email: ['', [Validators.required, Validators.email]],
     location: [''],
     bio: [''],
@@ -68,6 +69,7 @@ export class CandidateComponent implements OnInit {
       id: response.id,
       name: response.name,
       email: response.email,
+      phone: response.phone,
       location: response.location,
       bio: response.bio,
       currentCompany: response.currentCompany,

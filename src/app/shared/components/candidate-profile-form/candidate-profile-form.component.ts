@@ -42,6 +42,7 @@ export class CandidateProfileFormComponent
   public candidateForm = this.builder.group({
     name: ['', [Validators.required, Validators.minLength(5)]],
     email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.minLength(10)]],
     location: ['', [Validators.required, Validators.minLength(5)]],
     bio: ['', [Validators.required, Validators.minLength(10)]],
     experiences: this.builder.array([]),
@@ -67,6 +68,7 @@ export class CandidateProfileFormComponent
     const formData = {
       name: this.profile.name,
       email: this.profile.email,
+      phone: this.profile.phone,
       location: this.profile.location,
       bio: this.profile.bio,
     };

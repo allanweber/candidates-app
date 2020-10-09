@@ -6,8 +6,9 @@
     <th>Perfil</th>
     <th>Nome do Candidato</th>
     <th>Email</th>
-    <th>Localização</th>
-    <th>Empresa Atual</th>
+    <th>Telefone</th>
+    <th>Mora em</th>
+    <th>Última Atualização</th>
   </thead>
   <tbody>
     <tr *ngFor="let candidate of candidates$ | async">
@@ -24,13 +25,19 @@
       </td>
       <td>
         <span>
-          {{candidate.location}}
+          {{candidate.phone | mask: '(00) 00000-0000'}}
         </span>
       </td>
       <td>
         <span>
-          {{candidate.currentCompany}}
+          {{candidate.location}}
         </span>
+      </td>
+      <td>
+        <span *ngIf="candidate.lastUpdate; else noUpdate">{{candidate.lastUpdate| date:'dd/MM/yyyy HH:mm'}}</span>
+        <ng-template #noUpdate>
+          <span>Não atualizado</span>
+        </ng-template>
       </td>
     </tr>
   </tbody>

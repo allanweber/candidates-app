@@ -24,6 +24,7 @@
     "bulma": "^0.9.0",
     "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
+    "ngx-mask": "^10.0.4",
     "ngx-toastr": "^13.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
