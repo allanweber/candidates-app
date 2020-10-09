@@ -9,6 +9,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { VacanciesDropdownComponent } from './components/vacancies-dropdown/vacancies-dropdown.component';
 import { SliceKeepLastWordPipe } from './pipes/slice-keep-last-word.pipe';
 import { VacancyViewComponent } from './components/vacancy-view/vacancy-view.component';
+import { DateViewComponent } from './components/date-view/date-view.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { VacancyViewComponent } from './components/vacancy-view/vacancy-view.com
     SliceKeepLastWordPipe,
     CandidateProfileFormComponent,
     VacancyViewComponent,
+    DateViewComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +38,7 @@ import { VacancyViewComponent } from './components/vacancy-view/vacancy-view.com
     CandidateProfileFormComponent,
     CandidateProfileFormComponent,
     VacancyViewComponent,
+    DateViewComponent,
   ],
 })
 export class SharedModule {}

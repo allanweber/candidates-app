@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from './../../../../environments/environment';
-import { CandidateRegisterProfile } from './../../../shared/model/candidate-register-profile.model';
+import { CandidateProfile } from '../../../shared/model/candidate-profile.model';
 import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
 import { CandidateRegisterAccessToken } from './../model/candidate-register-access-token.model';
 import { AccessTokenStorageService } from './access-token-storage.service';
@@ -34,10 +34,10 @@ export class CandidateRegisterService {
       .pipe(this.error());
   }
 
-  getProfile(): Observable<CandidateRegisterProfile> {
+  getProfile(): Observable<CandidateProfile> {
     const access = this.validateAndGetToken();
     const headers = this.getAccessHeader(access);
-    return this.http.get<CandidateRegisterProfile>(
+    return this.http.get<CandidateProfile>(
       `${this.serverUrl}/candidate-register/${access.registerId}/profile`,
       { headers }
     );
@@ -52,7 +52,7 @@ export class CandidateRegisterService {
     );
   }
 
-  saveProfile(profile: CandidateRegisterProfile): Observable<any> {
+  saveProfile(profile: CandidateProfile): Observable<any> {
     const access = this.validateAndGetToken();
     const headers = this.getAccessHeader(access);
     return this.http.post<any>(

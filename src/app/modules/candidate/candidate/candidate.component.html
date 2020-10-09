@@ -3,13 +3,14 @@
     <div class="card">
       <div class="card-content">
         <form [formGroup]="candidateForm" (ngSubmit)="save()">
+
           <div class="columns">
             <div class="column">
               <div class="field">
                 <label class="label">Nome</label>
                 <div class="control">
-                  <input class="input" placeholder="Nome" name="name" type="text" formControlName="name" #name
-                    required autocomplete="off" [ngClass]="{'is-danger': isInvalid('name')}">
+                  <input class="input" placeholder="Nome" type="text" formControlName="name" required autocomplete="off"
+                    [ngClass]="{'is-danger': isInvalid('name')}">
                 </div>
                 <p class="help is-danger" *ngIf="isInvalid('name')">Nome é inválido</p>
               </div>
@@ -18,8 +19,8 @@
               <div class="field">
                 <label class="label">Email</label>
                 <div class="control">
-                  <input class="input" placeholder="Email" name="email" type="email" formControlName="email" #email
-                    required autocomplete="off" [ngClass]="{'is-danger': isInvalid('email')}">
+                  <input class="input" placeholder="Email" type="email" formControlName="email" required
+                    autocomplete="off" [ngClass]="{'is-danger': isInvalid('email')}">
                 </div>
                 <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
               </div>
@@ -31,18 +32,15 @@
               <div class="field">
                 <label class="label">Localização</label>
                 <div class="control">
-                  <input class="input" placeholder="Localização" name="location" type="text" formControlName="location"
-                    #location required autocomplete="off" [ngClass]="{'is-danger': isInvalid('location')}">
+                  <input class="input" placeholder="Localização" type="text" formControlName="location" readonly>
                 </div>
-                <p class="help is-danger" *ngIf="isInvalid('location')">Localização é inválida</p>
               </div>
             </div>
             <div class="column">
               <div class="field">
                 <label class="label">Empresa atual</label>
                 <div class="control">
-                  <input class="input" placeholder="Empresa atual" name="currentCompany" type="text"
-                    formControlName="currentCompany" #currentCompany autocomplete="off">
+                  <input class="input" placeholder="Empresa atual" type="text" formControlName="currentCompany" readonly>
                 </div>
               </div>
             </div>
@@ -51,10 +49,8 @@
           <div class="field">
             <label class="label">Biografia</label>
             <div class="control">
-              <textarea class="textarea" placeholder="Biografia" name="bio" type="text" formControlName="bio" #bio
-                required autocomplete="off" [ngClass]="{'is-danger': isInvalid('bio')}" rows="2"></textarea>
+              <textarea class="textarea" placeholder="Biografia" type="text" formControlName="bio" rows="2" readonly></textarea>
             </div>
-            <p class="help is-danger" *ngIf="isInvalid('bio')">Biografia é inválida</p>
           </div>
 
           <div class="mt-2">
