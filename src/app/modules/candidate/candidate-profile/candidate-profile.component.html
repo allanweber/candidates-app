@@ -1,0 +1,78 @@
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-128x128">
+      <img *ngIf="image; else noImage" [src]="image">
+      <ng-template #noImage>
+        <img src="https://bulma.io/images/placeholders/128x128.png">
+      </ng-template>
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <span class="title is-5">{{ candidateProfile?.name }}</span>
+        <br>
+        <span class="title is-6"><i class="fa fa-envelope"></i>{{ candidateProfile?.email }}</span>
+        <br>
+        <span class="title is-6"><i class="fa fa-map-marker"></i>{{ candidateProfile?.location }}</span>
+        <br>
+        {{ candidateProfile?.bio }}
+      </p>
+    </div>
+  </div>
+</article>
+<div class="card mt-2">
+  <header class="card-header" (click)="toggleExperiences()">
+    <p class="card-header-title">
+      Experiência Profissional
+    </p>
+    <a class="card-header-icon" aria-label="more options" (click)="toggleExperiences()">
+      <span class="icon">
+        <i *ngIf="experiencesVisible; else experiencesHidden" class="fa fa-angle-up" aria-hidden="true"></i>
+        <ng-template #experiencesHidden>
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </ng-template>
+      </span>
+    </a>
+  </header>
+  <div class="card-content" *ngIf="experiencesVisible">
+    <article class="media" *ngFor="let experience of candidateProfile?.experiences">
+      <figure class="media-left">
+        <p class="profileImage">
+          {{ experience.companyName | slice:0:1 }}
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="content">
+          <span><strong>{{ experience.companyName }}</strong></span>
+          <br>
+          <span class="ml-3"><i class="fa fa-map-marker"></i>{{ experience.companyLocation }}</span>
+          <br>
+          <span class="title is-5"><strong>{{ experience.position }}</strong></span>
+          <br>
+          <app-date-view [start]="experience.start" [end]="experience.end" classes="is-6"></app-date-view>
+          <br>
+          <div class="mt-2">
+            {{ experience.description }}
+          </div>
+
+          <div class="title is-6 mt-3"><strong>Habilidades</strong>
+            <div class="tags mt-2">
+              <span class="tag is-success" *ngFor="let skill of experience.skills">{{ skill.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <footer class="card-footer" *ngIf="experiencesVisible">
+    <a class="card-footer-item" aria-label="more options" (click)="toggleExperiences()">
+      <span class="icon">
+        <i *ngIf="experiencesVisible; else experiencesHidden" class="fa fa-angle-up" aria-hidden="true"></i>
+        <ng-template #experiencesHidden>
+          <i class="fa fa-angle-down" aria-hidden="true"></i>
+        </ng-template>
+      </span>
+    </a>
+  </footer>
+</div>

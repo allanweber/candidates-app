@@ -14,6 +14,16 @@
         </div>
         <div class="column">
           <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+              <input class="input" placeholder="Email" type="email" formControlName="email" required
+                autocomplete="off" [ngClass]="{'is-danger': isInvalid('email')}">
+            </div>
+            <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field">
             <label class="label">Localização</label>
             <div class="control">
               <input class="input" placeholder="Localização" type="text" formControlName="location" required

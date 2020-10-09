@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { VacancyView } from 'src/app/shared/model/vacancy-view.mode';
-import { CandidateRegisterProfile } from './../../../shared/model/candidate-register-profile.model';
+import { CandidateProfile } from '../../../shared/model/candidate-profile.model';
 import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
 import { AccessTokenStorageService } from './../service/access-token-storage.service';
 import { CandidateRegisterService } from './../service/candidate-register.service';
@@ -13,7 +13,7 @@ import { CandidateRegisterService } from './../service/candidate-register.servic
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-  profile: CandidateRegisterProfile;
+  profile: CandidateProfile;
   showErrorModal = false;
   vacancy: VacancyView;
 
@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
     this.showErrorModal = !this.showErrorModal;
   }
 
-  save(profile: CandidateRegisterProfile): void {
+  save(profile: CandidateProfile): void {
     this.candidateRegisterService
       .saveProfile(profile)
       .pipe(take(1))
@@ -66,8 +66,6 @@ export class ProfileComponent implements OnInit {
           console.log(err);
           if (err.status === 403) {
             this.router.navigate(['/candidate-register/invalid']);
-          } else {
-            this.feedbackMessage.showErrorMessage(err.error.message);
           }
         }
       );

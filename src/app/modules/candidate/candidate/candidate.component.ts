@@ -20,9 +20,9 @@ export class CandidateComponent implements OnInit {
     id: [''],
     name: ['', [Validators.required, Validators.minLength(5)]],
     email: ['', [Validators.required, Validators.email]],
-    location: ['', [Validators.required, Validators.minLength(5)]],
-    bio: ['', [Validators.required, Validators.minLength(10)]],
-    currentCompany: '',
+    location: [''],
+    bio: [''],
+    currentCompany: [''],
   });
 
   constructor(

@@ -1,3 +1,4 @@
+import { CandidateProfile } from './../../../shared/model/candidate-profile.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -21,6 +22,12 @@ export class CandidatesService {
   get(candidateId: string): Observable<Candidate> {
     return this.http.get<Candidate>(
       `${this.serverUrl}/candidates/${candidateId}`
+    );
+  }
+
+  getProfile(candidateId: string): Observable<CandidateProfile> {
+    return this.http.get<CandidateProfile>(
+      `${this.serverUrl}/candidates/${candidateId}/profile`
     );
   }
 

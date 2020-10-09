@@ -3,6 +3,7 @@
 </div>
 <table class="table is-striped is-hoverable is-fullwidth">
   <thead>
+    <th>Perfil</th>
     <th>Nome do Candidato</th>
     <th>Email</th>
     <th>Localização</th>
@@ -10,6 +11,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let candidate of candidates$ | async">
+      <td>
+        <a [routerLink]="['/candidates/', candidate.id, 'candidate', 'profile']"><strong>Perfil</strong></a>
+      </td>
       <td>
         <a [routerLink]="['/candidates/', candidate.id, 'candidate']"><strong>{{candidate.name}}</strong></a>
       </td>

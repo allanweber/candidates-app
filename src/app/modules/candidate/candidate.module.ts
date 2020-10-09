@@ -13,6 +13,8 @@ import { ResumeComponent } from './candidate-actions/resume/resume.component';
 import { SocialNetworksComponent } from './candidate-actions/social-networks/social-networks.component';
 import { RepositoriesComponent } from './candidate-actions/repositories/repositories.component';
 import { FillProfileSendComponent } from './candidate-actions/fill-profile-send/fill-profile-send.component';
+import { CandidateProfileComponent } from './candidate-profile/candidate-profile.component';
+import { ProfileActionComponent } from './candidate-actions/profile-action/profile-action.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { FillProfileSendComponent } from './candidate-actions/fill-profile-send/
     SocialNetworksComponent,
     RepositoriesComponent,
     FillProfileSendComponent,
+    CandidateProfileComponent,
+    ProfileActionComponent,
   ],
   imports: [
     CommonModule,

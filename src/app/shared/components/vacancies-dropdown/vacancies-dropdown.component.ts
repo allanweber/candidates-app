@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Vacancy } from '../../../modules/vacancy/model/vacancy.model';
-import { SliceKeepLastWordPipe } from './../../pipes/slice-keep-last-word.pipe';
 import { VacanciesService } from './../../service/vacancies.service';
 
 @Component({
@@ -18,8 +17,7 @@ export class VacanciesDropdownComponent implements OnInit {
   @Output() changed: EventEmitter<Vacancy> = new EventEmitter<Vacancy>();
 
   constructor(
-    private vacanciesService: VacanciesService,
-    private sliceKeepLastWordPipe: SliceKeepLastWordPipe
+    private vacanciesService: VacanciesService
   ) {}
 
   ngOnInit(): void {
@@ -27,10 +25,7 @@ export class VacanciesDropdownComponent implements OnInit {
   }
 
   select(vacancy: Vacancy): void {
-    this.selected = `${vacancy.name} - ${this.sliceKeepLastWordPipe.transform(
-      vacancy.description,
-      50
-    )}`;
+    this.selected = vacancy.name;
     this.changed.emit(vacancy);
   }
 }

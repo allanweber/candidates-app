@@ -21,7 +21,7 @@ import {
 } from '@angular/forms';
 import { CandidateExperience } from '../../model/candidate-experience.model';
 import { Skill } from '../../model/skill.model';
-import { CandidateRegisterProfile } from './../../model/candidate-register-profile.model';
+import { CandidateProfile } from '../../model/candidate-profile.model';
 import { FeedbackMessageService } from './../../service/feedback-message.service';
 
 @Component({
@@ -31,9 +31,9 @@ import { FeedbackMessageService } from './../../service/feedback-message.service
 })
 export class CandidateProfileFormComponent
   implements OnChanges, AfterViewChecked {
-  @Input() profile: CandidateRegisterProfile;
-  @Output() changed: EventEmitter<CandidateRegisterProfile> = new EventEmitter<
-    CandidateRegisterProfile
+  @Input() profile: CandidateProfile;
+  @Output() changed: EventEmitter<CandidateProfile> = new EventEmitter<
+    CandidateProfile
   >();
   @ViewChildren('companyName') companyNameFields: QueryList<ElementRef>;
 
@@ -41,6 +41,7 @@ export class CandidateProfileFormComponent
 
   public candidateForm = this.builder.group({
     name: ['', [Validators.required, Validators.minLength(5)]],
+    email: ['', [Validators.required, Validators.email]],
     location: ['', [Validators.required, Validators.minLength(5)]],
     bio: ['', [Validators.required, Validators.minLength(10)]],
     experiences: this.builder.array([]),
@@ -65,6 +66,7 @@ export class CandidateProfileFormComponent
   loadProfile(): void {
     const formData = {
       name: this.profile.name,
+      email: this.profile.email,
       location: this.profile.location,
       bio: this.profile.bio,
     };

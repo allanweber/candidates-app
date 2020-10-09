@@ -1,5 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,6 +11,8 @@ import { AuthenticationInterceptorService } from './core/interceptors/authentica
 import { HttpErrorInterceptor } from './core/interceptors/http-error-interceptor';
 import { MessagingService } from './core/service/messaging.service';
 import { SharedModule } from './shared/shared.module';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [AppComponent],

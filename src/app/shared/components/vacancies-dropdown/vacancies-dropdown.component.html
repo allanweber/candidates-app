@@ -12,7 +12,7 @@
     <div class="dropdown-content">
       <div *ngFor="let vacancy of vacancies$ | async">
         <a class="dropdown-item" onclick="toggleDropdown('vacancy-dropdown')" (click)="select(vacancy)">
-          <p><strong>{{vacancy.name}}</strong> - {{vacancy.description | sliceKeepLastWord:50}}</p>
+          <p><strong>{{vacancy.name}}</strong></p>
         </a>
         <hr class="dropdown-divider">
       </div>
