@@ -139,29 +139,8 @@
                   é inválida</p>
               </div>
 
-              <div class="columns">
-                <div class="column is-one-quarter">
-                  <div class="field has-addons">
-                    <div class="control">
-                      <input class="input" placeholder="Habilidade" type="text" autocomplete="off" #skillName
-                        (keyup.enter)="addSkill(experienceIndex, skillName)">
-                    </div>
-                    <div class="control">
-                      <button class="button is-link" type="button" title="Adicionar"
-                        (click)="addSkill(experienceIndex, skillName)">Adicionar</button>
-                    </div>
-                  </div>
-                  <p class="help is-info">Clique no botão ou Enter</p>
-                  <p class="help is-info">Adicione várias separadas por <strong>,</strong> ou <strong>;</strong></p>
-                </div>
-                <div class="column">
-                  <div class="field is-grouped is-grouped-multiline tags are-medium">
-                    <app-skill-edit *ngFor="let skill of getSkills(experienceIndex); let skillIndex = index;"
-                      [skill]="skill" (removed)="removeSkill(experienceIndex, $event)"
-                      (changed)="changeSkill(experienceIndex, $event)"></app-skill-edit>
-                  </div>
-                </div>
-              </div>
+              <app-skill-edit [skills]="getSkills(experienceIndex)" (changed)="changeSkills(experienceIndex, $event)">
+              </app-skill-edit>
 
             </div>
             <footer class="card-footer">

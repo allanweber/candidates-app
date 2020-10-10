@@ -56,11 +56,10 @@
             {{ experience.description }}
           </div>
 
-          <div class="title is-6 mt-3"><strong>Habilidades</strong>
-            <div class="field is-grouped is-grouped-multiline tags are-medium">
-              <app-skill-edit *ngFor="let skill of experience.skills" [skill]="skill" editable="false"></app-skill-edit>
-            </div>
-          </div>
+          <div class="title is-6 mt-3 mb-2"><strong>Habilidades</strong></div>
+          <app-skill-edit [skills]="experience.skills" editable="false" removable="false" addable="false">
+          </app-skill-edit>
+
         </div>
       </div>
     </article>
