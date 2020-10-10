@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { Vacancy } from '../model/vacancy.model';
@@ -21,7 +21,7 @@ export class VacancyComponent implements OnInit {
     id: [''],
     name: ['', [Validators.required, Validators.minLength(5)]],
     description: ['', [Validators.required, Validators.minLength(5)]],
-    skills: this.builder.array([]),
+    skills: [null, [Validators.required]],
   });
 
   constructor(
@@ -50,33 +50,17 @@ export class VacancyComponent implements OnInit {
               }
             }
           );
-      } else {
-        this.addItem();
       }
     });
   }
 
-  getControls(): any {
-    return (this.vacancyForm.get('skills') as FormArray).controls;
+  getSkills(): Skill[] {
+    const skills = this.vacancyForm.get('skills').value;
+    return skills;
   }
 
-  removeItem(i: number): void {
-    this.items = this.vacancyForm.get('skills') as FormArray;
-    this.items.removeAt(i);
-    if (this.items.length < 1) {
-      this.addItem();
-    }
-  }
-
-  addItem(): void {
-    this.items = this.vacancyForm.get('skills') as FormArray;
-    this.items.push(this.createItem());
-  }
-
-  createItem(): FormGroup {
-    return this.builder.group({
-      name: ['', [Validators.required]],
-    });
+  changeSkills(skills: Skill[]): void {
+    this.vacancyForm.get('skills').setValue(skills);
   }
 
   load(response: Vacancy): void {
@@ -84,20 +68,9 @@ export class VacancyComponent implements OnInit {
       id: response.id,
       name: response.name,
       description: response.description,
+      skills: response.skills,
     };
     this.vacancyForm.patchValue(formData);
-    this.loadSkills(response.skills);
-  }
-
-  loadSkills(skills: Skill[]): void {
-    skills.forEach((skill) => {
-      this.items = this.vacancyForm.get('skills') as FormArray;
-      this.items.push(
-        this.builder.group({
-          name: skill.name,
-        })
-      );
-    });
   }
 
   save(): void {

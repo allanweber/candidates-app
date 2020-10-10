@@ -63,7 +63,6 @@ export class ProfileComponent implements OnInit {
           this.router.navigate(['/candidate-register/sent']);
         },
         (err) => {
-          console.log(err);
           if (err.status === 403) {
             this.router.navigate(['/candidate-register/invalid']);
           }

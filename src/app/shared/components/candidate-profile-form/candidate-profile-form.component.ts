@@ -9,15 +9,14 @@ import {
   Output,
   QueryList,
   SimpleChanges,
-
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { CandidateExperience } from '../../model/candidate-experience.model';
 import { Skill } from '../../model/skill.model';
@@ -100,35 +99,14 @@ export class CandidateProfileFormComponent
     return skills;
   }
 
-  addSkill(experienceIndex: number, skillInput: HTMLInputElement): void {
-    const skillName = skillInput.value;
-    if (!skillName || skillName.trim() === '') {
-      return;
-    }
-    const skills = this.getExperienceFormField(experienceIndex, 'skills');
-    let skillsCurrentValues = skills.value;
-    if (!skillsCurrentValues) {
-      skillsCurrentValues = [];
-    }
-    const skillValues = skillName.split(/,|;/).filter(x => x.trim());
-
-    skillValues.forEach(skill => skillsCurrentValues.push({ name: skill }));
-    skills.patchValue(skillsCurrentValues);
-    skillInput.value = '';
-    skillInput.focus();
-  }
-
-  removeSkill(experienceIndex: number, skillName: string): void {
-    const skills = this.getExperienceFormField(experienceIndex, 'skills');
-    const skillsValues = skills.value;
-    const newSkills = skillsValues.filter((skill) => skill.name !== skillName);
-    skills.patchValue(newSkills);
+  changeSkills(experienceIndex: number, skills: Skill[]): void {
+    const skillsForm = this.getExperienceFormField(experienceIndex, 'skills');
+    skillsForm.patchValue(skills);
   }
 
   getControls(): any {
     return (this.candidateForm.get('experiences') as FormArray).controls;
   }
-
 
   addExperience(): void {
     this.experiences = this.candidateForm.get('experiences') as FormArray;

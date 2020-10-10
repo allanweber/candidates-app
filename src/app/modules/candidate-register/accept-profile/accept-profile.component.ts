@@ -59,10 +59,7 @@ export class AcceptProfileComponent implements OnInit {
     this.candidateRegisterService
       .validateAccess()
       .pipe(take(1))
-      .subscribe(
-        () => this.router.navigate(['/candidate-register']),
-        (error) => console.log(error)
-      );
+      .subscribe(() => this.router.navigate(['/candidate-register']));
   }
 
   isInvalid(name): boolean {
