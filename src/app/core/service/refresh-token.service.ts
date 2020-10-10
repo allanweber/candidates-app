@@ -31,10 +31,7 @@ export class RefreshTokenService {
     timer(expire.startTimer, expire.nextTimer)
       .pipe(
         takeUntil(this.stopTimer),
-        mergeMap(() => {
-          console.log('Refreshing Token');
-          return this.authService.refreshToken();
-        })
+        mergeMap(() => this.authService.refreshToken())
       )
       .subscribe(
         (response) => {

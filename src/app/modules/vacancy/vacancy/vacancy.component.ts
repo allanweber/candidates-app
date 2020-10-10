@@ -61,7 +61,6 @@ export class VacancyComponent implements OnInit {
 
   changeSkills(skills: Skill[]): void {
     this.vacancyForm.get('skills').setValue(skills);
-    console.log(this.vacancyForm.get('skills').value);
   }
 
   load(response: Vacancy): void {
