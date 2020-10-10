@@ -1,0 +1,8 @@
+<div class="control ml-3 mt-2">
+  <div class="tags has-addons">
+    <span *ngIf="isEditable()" class="tag is-success is-clickable"><i class="fa fa-minus" (click)="change(-1)"></i></span>
+    <span class="ml--10 tag is-success ">{{skill.name}} -<span class="mr--10 ml-1 w-40 has-text-weight-bold">{{getYearsText()}}</span> </span>
+    <span *ngIf="isEditable()" class="tag is-success is-clickable"><i class="fa fa-plus"  (click)="change(1)"></i></span>
+    <span *ngIf="isEditable()" class="tag is-delete is-clickable" (click)="remove()"></span>
+  </div>
+</div>

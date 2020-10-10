@@ -28,8 +28,8 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control">
-              <input class="input" placeholder="Email" type="email" formControlName="email" required
-                autocomplete="off" [ngClass]="{'is-danger': isInvalid('email')}">
+              <input class="input" placeholder="Email" type="email" formControlName="email" required autocomplete="off"
+                [ngClass]="{'is-danger': isInvalid('email')}">
             </div>
             <p class="help is-danger" *ngIf="isInvalid('email')">Email é inválido</p>
           </div>
@@ -38,8 +38,8 @@
           <div class="field">
             <label class="label">Telefone</label>
             <div class="control">
-              <input class="input" placeholder="(55)-55555-5555" type="text" formControlName="phone" required mask="(00) 00000-0000"
-                autocomplete="off" [ngClass]="{'is-danger': isInvalid('phone')}">
+              <input class="input" placeholder="(55)-55555-5555" type="text" formControlName="phone" required
+                mask="(00) 00000-0000" autocomplete="off" [ngClass]="{'is-danger': isInvalid('phone')}">
             </div>
             <p class="help is-danger" *ngIf="isInvalid('phone')">Telefone é inválido</p>
           </div>
@@ -66,10 +66,12 @@
                   <div class="field">
                     <label class="label">Nome da empresa</label>
                     <div class="control">
-                      <input class="input" placeholder="Nome da empresa" type="text" formControlName="companyName" #companyName id="company-{{experienceIndex}}"
-                        required autocomplete="off" [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'companyName')}">
+                      <input class="input" placeholder="Nome da empresa" type="text" formControlName="companyName"
+                        #companyName id="company-{{experienceIndex}}" required autocomplete="off"
+                        [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'companyName')}">
                     </div>
-                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'companyName')">Nome da empresa é inválida</p>
+                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'companyName')">Nome da empresa é
+                      inválida</p>
                   </div>
                 </div>
                 <div class="column">
@@ -80,7 +82,8 @@
                         formControlName="companyLocation" required autocomplete="off"
                         [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'companyLocation')}">
                     </div>
-                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'companyLocation')">Localização da empresa é
+                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'companyLocation')">Localização da
+                      empresa é
                       inválida
                     </p>
                   </div>
@@ -107,7 +110,8 @@
                       <input class="input" placeholder="Data de início" type="date" formControlName="start" required
                         autocomplete="off" [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'start')}">
                     </div>
-                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'start')">Data de início é inválida</p>
+                    <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'start')">Data de início é inválida
+                    </p>
                   </div>
                 </div>
                 <div class="column">
@@ -131,28 +135,30 @@
                     formControlName="description" required autocomplete="off"
                     [ngClass]="{'is-danger': isInvalidExp(experienceIndex, 'description')}" rows="3"></textarea>
                 </div>
-                <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'description')">Descrição das atividades é inválida</p>
+                <p class="help is-danger" *ngIf="isInvalidExp(experienceIndex, 'description')">Descrição das atividades
+                  é inválida</p>
               </div>
 
               <div class="columns">
                 <div class="column is-one-quarter">
                   <div class="field has-addons">
                     <div class="control">
-                      <input class="input" placeholder="Habilidade" type="text" autocomplete="off" #skillName (keyup.enter)="addSkill(experienceIndex, skillName)">
+                      <input class="input" placeholder="Habilidade" type="text" autocomplete="off" #skillName
+                        (keyup.enter)="addSkill(experienceIndex, skillName)">
                     </div>
                     <div class="control">
-                      <button class="button is-link" type="button" title="Adicionar" (click)="addSkill(experienceIndex, skillName)">Adicionar</button>
+                      <button class="button is-link" type="button" title="Adicionar"
+                        (click)="addSkill(experienceIndex, skillName)">Adicionar</button>
                     </div>
                   </div>
                   <p class="help is-info">Clique no botão ou Enter</p>
                   <p class="help is-info">Adicione várias separadas por <strong>,</strong> ou <strong>;</strong></p>
                 </div>
                 <div class="column">
-                  <div class="tags has-addons are-large">
-                    <span class="tag is-success ml-1"
-                      *ngFor="let skill of getSkills(experienceIndex); let skillIndex = index;">{{skill.name}}
-                      <button class="delete is-small" type="button" (click)="removeSkill(experienceIndex, skill.name)"></button>
-                    </span>
+                  <div class="field is-grouped is-grouped-multiline tags are-medium">
+                    <app-skill-edit *ngFor="let skill of getSkills(experienceIndex); let skillIndex = index;"
+                      [skill]="skill" (removed)="removeSkill(experienceIndex, $event)"
+                      (changed)="changeSkill(experienceIndex, $event)"></app-skill-edit>
                   </div>
                 </div>
               </div>
@@ -168,7 +174,8 @@
 
       <div class="card mt-3">
         <footer class="card-footer">
-          <button class="button is-light card-footer-item" type="button" (click)="addExperience()">Adicionar Experiência</button>
+          <button class="button is-light card-footer-item" type="button" (click)="addExperience()">Adicionar
+            Experiência</button>
         </footer>
       </div>
 

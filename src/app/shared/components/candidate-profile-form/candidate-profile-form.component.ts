@@ -112,17 +112,27 @@ export class CandidateProfileFormComponent
     }
     const skillValues = skillName.split(/,|;/).filter(x => x.trim());
 
-    skillValues.forEach(skill => skillsCurrentValues.push({ name: skill }));
+    skillValues.forEach(skill => skillsCurrentValues.push({ name: skill, years: 0 }));
     skills.patchValue(skillsCurrentValues);
     skillInput.value = '';
     skillInput.focus();
   }
 
-  removeSkill(experienceIndex: number, skillName: string): void {
+  removeSkill(experienceIndex: number, skill: Skill): void {
     const skills = this.getExperienceFormField(experienceIndex, 'skills');
     const skillsValues = skills.value;
-    const newSkills = skillsValues.filter((skill) => skill.name !== skillName);
+    const newSkills = skillsValues.filter((s) => s.name !== skill.name);
     skills.patchValue(newSkills);
+  }
+
+  changeSkill(experienceIndex: number, skill: Skill): void {
+    const skills = this.getExperienceFormField(experienceIndex, 'skills');
+    const skillsValues = skills.value;
+    const skillIndex = skillsValues.indexOf(skill);
+    if (skillIndex > -1) {
+      skillsValues[skillIndex] = skill;
+  }
+    skills.patchValue(skillsValues);
   }
 
   getControls(): any {
