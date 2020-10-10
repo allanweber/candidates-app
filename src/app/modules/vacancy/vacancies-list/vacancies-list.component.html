@@ -16,11 +16,8 @@
         <span>{{vacancy.description | sliceKeepLastWord:50}}</span>
       </td>
       <td>
-        <div class="tags">
-          <span class="tag is-success" *ngFor="let skill of vacancy.skills.slice(0,4)">{{skill.name}}
-          </span>
-          <span *ngIf=" vacancy?.skills?.length > 4"><i class="fa fa-ellipsis-h"></i></span>
-        </div>
+        <app-skill-edit [skills]="vacancy.skills.slice(0,4)" editable="false" removable="false" addable="false" yearsVisible="false" tagSize="are-small">
+        </app-skill-edit>
       </td>
     </tr>
   </tbody>
