@@ -8,7 +8,6 @@ import { CandidateImageComponent } from './candidate-actions/candidate-image/can
 import { FillProfileSendComponent } from './candidate-actions/fill-profile-send/fill-profile-send.component';
 import { GithubActionsComponent } from './candidate-actions/github-actions/github-actions.component';
 import { ProfileActionComponent } from './candidate-actions/profile-action/profile-action.component';
-import { RepositoriesComponent } from './candidate-actions/repositories/repositories.component';
 import { ResumeComponent } from './candidate-actions/resume/resume.component';
 import { SocialNetworksComponent } from './candidate-actions/social-networks/social-networks.component';
 import { CandidateAddComponent } from './candidate-add/candidate-add.component';
@@ -28,7 +27,6 @@ import { LastUpdateComponent } from './candidate-actions/last-update/last-update
     CandidateImageComponent,
     ResumeComponent,
     SocialNetworksComponent,
-    RepositoriesComponent,
     FillProfileSendComponent,
     CandidateProfileComponent,
     ProfileActionComponent,
