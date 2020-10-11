@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { Candidate } from '../../model/candidate.model';
 import { MessagingService } from './../../../../core/service/messaging.service';
+import { RepositoryCounter } from './../../../../shared/model/repository-counter.model';
+import { CandidateRepositoriesService } from './../../../../shared/service/candidate-repositories.service';
 import { FeedbackMessageService } from './../../../../shared/service/feedback-message.service';
 import { CandidatesService } from './../../service/candidates.service';
 
@@ -12,16 +14,23 @@ import { CandidatesService } from './../../service/candidates.service';
 })
 export class GithubActionsComponent implements OnInit {
   @Input() candidate: Candidate;
+  repositoryCounter: RepositoryCounter;
 
   showErrorModal = false;
 
   constructor(
     private candidatesService: CandidatesService,
+    private candidateRepositoriesService: CandidateRepositoriesService,
     private feedbackMessage: FeedbackMessageService,
     private messagingService: MessagingService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.candidateRepositoriesService
+      .count(this.candidate.id)
+      .pipe(take(1))
+      .subscribe((response) => (this.repositoryCounter = response));
+  }
 
   access(): void {
     this.candidatesService
@@ -45,6 +54,14 @@ export class GithubActionsComponent implements OnInit {
     return this.candidate.socialEntries?.find(
       (entry) => entry.type === 'GITHUB'
     ).error;
+  }
+
+  getButtonText(): string {
+    const status = this.getGitAccessStatus();
+    if (status === 'GRANTED') {
+      return 'Solicitar Atualização';
+    }
+    return 'Solicitar Acesso';
   }
 
   getGitAccessColor(): string {
