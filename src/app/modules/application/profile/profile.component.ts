@@ -3,9 +3,8 @@ import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { VacancyView } from 'src/app/shared/model/vacancy-view.mode';
 import { CandidateProfile } from '../../../shared/model/candidate-profile.model';
-import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
+import { CandidateApplicationService } from '../service/candidate-application.service';
 import { AccessTokenStorageService } from './../service/access-token-storage.service';
-import { CandidateRegisterService } from './../service/candidate-register.service';
 
 @Component({
   selector: 'app-profile',
@@ -20,8 +19,7 @@ export class ProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private accessTokenStorageService: AccessTokenStorageService,
-    private candidateRegisterService: CandidateRegisterService,
-    private feedbackMessage: FeedbackMessageService
+    private candidateApplicationService: CandidateApplicationService
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +30,7 @@ export class ProfileComponent implements OnInit {
       this.navigateInvalid();
     }
 
-    this.candidateRegisterService
+    this.candidateApplicationService
       .getVacancy()
       .pipe(take(1))
       .subscribe(
@@ -40,7 +38,7 @@ export class ProfileComponent implements OnInit {
         () => this.navigateInvalid()
       );
 
-    this.candidateRegisterService
+    this.candidateApplicationService
       .getProfile()
       .pipe(take(1))
       .subscribe(
@@ -54,23 +52,23 @@ export class ProfileComponent implements OnInit {
   }
 
   save(profile: CandidateProfile): void {
-    this.candidateRegisterService
+    this.candidateApplicationService
       .saveProfile(profile)
       .pipe(take(1))
       .subscribe(
         () => {
           this.accessTokenStorageService.remove();
-          this.router.navigate(['/candidate-register/sent']);
+          this.router.navigate(['/candidate-application/sent']);
         },
         (err) => {
           if (err.status === 403) {
-            this.router.navigate(['/candidate-register/invalid']);
+            this.router.navigate(['/candidate-application/invalid']);
           }
         }
       );
   }
 
   private navigateInvalid(): void {
-    this.router.navigate(['/candidate-register/invalid']);
+    this.router.navigate(['/candidate-application/invalid']);
   }
 }

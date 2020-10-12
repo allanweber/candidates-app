@@ -9,7 +9,7 @@ import { SentProfileComponent } from './sent-profile/sent-profile.component';
 const routes: Routes = [
   { path: '', component: ProfileComponent },
   { path: 'denied', component: DenyProfileComponent },
-  { path: 'accept/:registerId', component: AcceptProfileComponent },
+  { path: 'accept/:applicationId', component: AcceptProfileComponent },
   { path: 'invalid', component: InvalidProfileComponent },
   { path: 'sent', component: SentProfileComponent },
 ];
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CandidateRegisterRoutingModule {}
+export class CandidateApplicationRoutingModule {}
