@@ -21,8 +21,8 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
   },
   {
-    path: 'candidate-register',
-    loadChildren: () => import('./modules/candidate-register/candidate-register.module').then((m) => m.CandidateRegisterModule),
+    path: 'candidate-application',
+    loadChildren: () => import('./modules/application/candidate-application.module').then((m) => m.CandidateApplicationModule),
   }
 ];
 

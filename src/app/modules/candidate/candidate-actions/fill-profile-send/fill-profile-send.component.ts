@@ -8,10 +8,10 @@ import {
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Vacancy } from '../../../vacancy/model/vacancy.model';
-import { CandidateRegisterResponse } from './../../../../shared/model/candidate-register-response.model';
-import { FeedbackMessageService } from './../../../../shared/service/feedback-message.service';
 import { Candidate } from '../../model/candidate.model';
-import { CandidatesService } from './../../service/candidates.service';
+import { CandidateApplicationResponse } from '../../../../shared/model/candidate-application-response.model';
+import { FeedbackMessageService } from './../../../../shared/service/feedback-message.service';
+import { ApplicationsService } from '../../../../shared/service/applications.service';
 
 @Component({
   selector: 'app-fill-profile-send',
@@ -21,11 +21,11 @@ import { CandidatesService } from './../../service/candidates.service';
 export class FillProfileSendComponent implements OnInit, OnChanges {
   @Input() candidate: Candidate;
   vacancy: Vacancy;
-  registers$: Observable<CandidateRegisterResponse[]>;
+  applications$: Observable<CandidateApplicationResponse[]>;
   showErrorModal = false;
 
   constructor(
-    private candidatesService: CandidatesService,
+    private applicationsService: ApplicationsService,
     private feedbackMessage: FeedbackMessageService
   ) {}
 
@@ -33,13 +33,13 @@ export class FillProfileSendComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.candidate.currentValue) {
-      this.loadRegisters();
+      this.loadApplications();
     }
   }
 
-  loadRegisters(): void {
-    this.registers$ = this.candidatesService
-      .getCandidateRegisters(this.candidate.id)
+  loadApplications(): void {
+    this.applications$ = this.applicationsService
+      .getCandidateApplications(this.candidate.id)
       .pipe(take(1));
   }
 
@@ -58,11 +58,11 @@ export class FillProfileSendComponent implements OnInit, OnChanges {
   }
 
   private sendRequest(vacancyId: string): void {
-    this.candidatesService
-      .sendRegisterRequest(this.candidate.id, vacancyId)
+    this.applicationsService
+      .sendApplication(this.candidate.id, vacancyId)
       .pipe(take(1))
       .subscribe(() => {
-        this.loadRegisters();
+        this.loadApplications();
         this.feedbackMessage.showSuccessMessage(
           `Email com a solicitação foi enviado para ${this.candidate.email}.`
         );
@@ -73,16 +73,16 @@ export class FillProfileSendComponent implements OnInit, OnChanges {
     this.showErrorModal = !this.showErrorModal;
   }
 
-  canTryAgain(candidateRegisterResponse: CandidateRegisterResponse): boolean {
-    return candidateRegisterResponse.status !== 'DONE';
+  canTryAgain(application: CandidateApplicationResponse): boolean {
+    return application.status !== 'DONE';
   }
 
   sendAgain(vacancyId: string): void {
     this.sendRequest(vacancyId);
   }
 
-  getStatusColor(candidateRegisterResponse: CandidateRegisterResponse): string {
-    const status = candidateRegisterResponse.status;
+  getStatusColor(application: CandidateApplicationResponse): string {
+    const status = application.status;
     if (status === 'PENDING') {
       return 'hsl(0, 0%, 4%)';
     } else if (status === 'ACCEPTED') {

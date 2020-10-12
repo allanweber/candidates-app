@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Vacancy } from '../model/vacancy.model';
-import { VacanciesService } from '../../../shared/service/vacancies.service';
-import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
+import { VacancyApplication } from 'src/app/shared/model/vacancy-application.model';
+import { ApplicationsService } from 'src/app/shared/service/applications.service';
 import { Skill } from '../../../shared/model/skill.model';
+import { VacanciesService } from '../../../shared/service/vacancies.service';
+import { Vacancy } from '../model/vacancy.model';
+import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
 
 @Component({
   selector: 'app-vacancy',
@@ -15,7 +18,9 @@ import { Skill } from '../../../shared/model/skill.model';
 export class VacancyComponent implements OnInit {
   vacancyId: string;
   messages: string[] = [];
+  vacancyApplications$: Observable<VacancyApplication[]>;
   items: FormArray;
+  showErrorModal = false;
 
   public vacancyForm = this.builder.group({
     id: [''],
@@ -29,7 +34,9 @@ export class VacancyComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private builder: FormBuilder,
     private vacancyService: VacanciesService,
-    private messageService: FeedbackMessageService
+    private messageService: FeedbackMessageService,
+    private applicationsService: ApplicationsService,
+    private feedbackMessage: FeedbackMessageService,
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +47,10 @@ export class VacancyComponent implements OnInit {
           .get(this.vacancyId)
           .pipe(take(1))
           .subscribe(
-            (response) => this.load(response),
+            (response) => {
+              this.load(response);
+              this.loadApplications();
+            },
             (err) => {
               if (err.status === 404) {
                 this.messageService.showWarningMessage(
@@ -52,6 +62,12 @@ export class VacancyComponent implements OnInit {
           );
       }
     });
+  }
+
+  private loadApplications(): void {
+    this.vacancyApplications$ = this.applicationsService
+      .getVacancyApplications(this.vacancyId)
+      .pipe(take(1));
   }
 
   getSkills(): Skill[] {
@@ -107,5 +123,44 @@ export class VacancyComponent implements OnInit {
         this.messages.push(error.message);
       }
     });
+  }
+
+  getStatusColor(application: VacancyApplication): string {
+    const status = application.status;
+    if (status === 'PENDING') {
+      return 'hsl(0, 0%, 4%)';
+    } else if (status === 'ACCEPTED') {
+      return 'hsl(204, 86%, 53%)';
+    } else if (status === 'DONE') {
+      return 'hsl(141, 71%, 48%)';
+    } else if (status === 'ERROR') {
+      return 'hsl(348, 100%, 61%)';
+    } else if (status === 'DENIED') {
+      return 'hsl(48, 100%, 67%)';
+    } else {
+      return status;
+    }
+  }
+
+  toggleModal(): void {
+    this.showErrorModal = !this.showErrorModal;
+  }
+
+  canTryAgain(application: VacancyApplication): boolean {
+    return application.status !== 'DONE';
+  }
+
+  sendAgain(application: VacancyApplication): void {
+    this.sendRequest(application);
+  }
+
+  private sendRequest(application: VacancyApplication): void {
+    this.applicationsService
+      .sendApplication(application.candidateId, this.vacancyId)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.loadApplications();
+        this.feedbackMessage.showSuccessMessage('Email com a solicitação foi enviado para candidato');
+      });
   }
 }

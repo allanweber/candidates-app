@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { CandidateRegisterService } from '../service/candidate-register.service';
+import { CandidateApplicationService } from '../service/candidate-application.service';
 import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
 import { AccessTokenStorageService } from './../service/access-token-storage.service';
 
@@ -12,7 +12,7 @@ import { AccessTokenStorageService } from './../service/access-token-storage.ser
   styleUrls: ['./accept-profile.component.scss'],
 })
 export class AcceptProfileComponent implements OnInit {
-  registerId: string;
+  applicationId: string;
 
   public validateForm = this.builder.group({
     code: [
@@ -27,13 +27,13 @@ export class AcceptProfileComponent implements OnInit {
     private builder: FormBuilder,
     private messageService: FeedbackMessageService,
     private accessTokenStorageService: AccessTokenStorageService,
-    private candidateRegisterService: CandidateRegisterService
+    private candidateApplicationService: CandidateApplicationService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(take(1)).subscribe((params) => {
-      if (params.registerId) {
-        this.registerId = params.registerId;
+      if (params.applicationId) {
+        this.applicationId = params.applicationId;
       }
     });
     this.accessTokenStorageService.remove();
@@ -45,21 +45,21 @@ export class AcceptProfileComponent implements OnInit {
       return;
     }
 
-    if (!this.registerId) {
+    if (!this.applicationId) {
       this.messageService.showWarningMessage(
         'Código de registro não existe, contate o recrutador.'
       );
     }
 
     this.accessTokenStorageService.add({
-      registerId: this.registerId,
+      applicationId: this.applicationId,
       accessToken: this.validateForm.get('code').value,
     });
 
-    this.candidateRegisterService
+    this.candidateApplicationService
       .validateAccess()
       .pipe(take(1))
-      .subscribe(() => this.router.navigate(['/candidate-register']));
+      .subscribe(() => this.router.navigate(['/candidate-application']));
   }
 
   isInvalid(name): boolean {

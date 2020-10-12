@@ -1,21 +1,21 @@
-import { VacancyView } from './../../../shared/model/vacancy-view.mode';
+import { VacancyView } from '../../../shared/model/vacancy-view.mode';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { environment } from './../../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { CandidateProfile } from '../../../shared/model/candidate-profile.model';
-import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
-import { CandidateRegisterAccessToken } from './../model/candidate-register-access-token.model';
+import { FeedbackMessageService } from '../../../shared/service/feedback-message.service';
+import { CandidateApplicationAccessToken } from '../model/candidate-application-access-token.model';
 import { AccessTokenStorageService } from './access-token-storage.service';
 
-const ACCESS_TOKEN_KEY = 'candidate-register-access-token';
+const ACCESS_TOKEN_KEY = 'candidate-application-access-token';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CandidateRegisterService {
-  private serverUrl = environment.candidatesCareer;
+export class CandidateApplicationService {
+  private serverUrl = `${environment.candidatesCareer}/candidate-application`;
 
   constructor(
     private http: HttpClient,
@@ -28,7 +28,7 @@ export class CandidateRegisterService {
     const headers = this.getAccessHeader(access);
     return this.http
       .get<any>(
-        `${this.serverUrl}/candidate-register/validate-access/${access.registerId}`,
+        `${this.serverUrl}/validate-access/${access.applicationId}`,
         { headers }
       )
       .pipe(this.error());
@@ -38,7 +38,7 @@ export class CandidateRegisterService {
     const access = this.validateAndGetToken();
     const headers = this.getAccessHeader(access);
     return this.http.get<CandidateProfile>(
-      `${this.serverUrl}/candidate-register/${access.registerId}/profile`,
+      `${this.serverUrl}/${access.applicationId}/profile`,
       { headers }
     );
   }
@@ -47,7 +47,7 @@ export class CandidateRegisterService {
     const access = this.validateAndGetToken();
     const headers = this.getAccessHeader(access);
     return this.http.get<VacancyView>(
-      `${this.serverUrl}/candidate-register/${access.registerId}/vacancy`,
+      `${this.serverUrl}/${access.applicationId}/vacancy`,
       { headers }
     );
   }
@@ -56,23 +56,23 @@ export class CandidateRegisterService {
     const access = this.validateAndGetToken();
     const headers = this.getAccessHeader(access);
     return this.http.post<any>(
-      `${this.serverUrl}/candidate-register/${access.registerId}`,
+      `${this.serverUrl}/${access.applicationId}`,
       profile,
       { headers }
     );
   }
 
-  private validateAndGetToken(): any {
+  private validateAndGetToken(): CandidateApplicationAccessToken {
     if (
       !this.accessTokenStorageService.hasToken() ||
       !this.accessTokenStorageService.isValid()
     ) {
-      return throwError('Dados inválidos');
+      throwError('Dados inválidos');
     }
     return this.accessTokenStorageService.getToken;
   }
 
-  private getAccessHeader(access: CandidateRegisterAccessToken): HttpHeaders {
+  private getAccessHeader(access: CandidateApplicationAccessToken): HttpHeaders {
     return new HttpHeaders().set(ACCESS_TOKEN_KEY, access.accessToken);
   }
 
