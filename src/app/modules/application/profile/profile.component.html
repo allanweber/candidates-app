@@ -1,12 +1,18 @@
-<h3 class="title is-4">Aqui você pode atualizar seu perfil para a vaga: <a class="is-link"
-    (click)="toggleModal()">{{vacancy?.name}}</a></h3>
+<h3 class="title is-4">Aqui você pode atualizar seu perfil para a vaga:
+  <a class="is-link" (click)="toggleModal()">{{vacancy?.name}}</a>
+</h3>
+<div>
+  <button class="button is-danger is-small" type="button" (click)="deny()">Não quero participar do
+    processo</button>
+</div>
 <div class="modal" [ngClass]="{'is-active': showErrorModal}">
   <div class="modal-background"></div>
   <div class="modal-content">
     <div class="notification">
-      <app-vacancy-view [vacancy]="vacancy"></app-vacancy-view>
+      <app-vacancy-view [applicationId]="applicationId"></app-vacancy-view>
     </div>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
 </div>
 <app-candidate-profile-form [profile]="profile" (changed)="save($event)"></app-candidate-profile-form>
+<app-deny-option (reasonSelected)="reasonSelected($event)"></app-deny-option>
