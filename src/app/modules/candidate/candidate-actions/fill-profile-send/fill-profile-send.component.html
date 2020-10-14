@@ -35,15 +35,15 @@
         <th>Erro</th>
         <th></th>
       </thead>
-      <tbody>
+      <tbody class="is-size-7">
         <tr *ngFor="let application of applications$ | async">
           <td>
             <a
-              [routerLink]="['/vacancies/', application.vacancyId, 'editar']"><strong>{{application.vacancyName}}</strong></a>
+              [routerLink]="['/vacancies/', application.vacancy.id, 'editar']"><strong>{{application.vacancy.name}}</strong></a>
           </td>
           <td>
             <span [ngStyle]="{'color': getStatusColor(application)}">
-              {{application.status}}
+              <b>{{application.statusText}}</b>
             </span>
           </td>
           <td>
@@ -72,7 +72,7 @@
           </td>
           <td>
             <div *ngIf="canTryAgain(application)">
-              <button class="button is-link is-pulled-right is-small" (click)="sendAgain(application.vacancyId)">Reenviar</button>
+              <button class="button is-link is-pulled-right is-small" (click)="sendAgain(application.vacancy.id)">Reenviar</button>
             </div>
           </td>
         </tr>

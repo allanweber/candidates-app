@@ -3,13 +3,13 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { VacancyApplication } from 'src/app/shared/model/vacancy-application.model';
-import { ApplicationsService } from 'src/app/shared/service/applications.service';
+import { ApplicationResponse } from '../../../shared/model/application-response.model';
+import { ApplicationsService } from '../../..//shared/service/applications.service';
+import { ApplicationUtilities } from '../../../shared/model/application-utilities.model';
 import { Skill } from '../../../shared/model/skill.model';
 import { VacanciesService } from '../../../shared/service/vacancies.service';
 import { Vacancy } from '../model/vacancy.model';
 import { FeedbackMessageService } from './../../../shared/service/feedback-message.service';
-
 @Component({
   selector: 'app-vacancy',
   templateUrl: './vacancy.component.html',
@@ -18,7 +18,7 @@ import { FeedbackMessageService } from './../../../shared/service/feedback-messa
 export class VacancyComponent implements OnInit {
   vacancyId: string;
   messages: string[] = [];
-  vacancyApplications$: Observable<VacancyApplication[]>;
+  applications$: Observable<ApplicationResponse[]>;
   items: FormArray;
   showErrorModal = false;
 
@@ -36,7 +36,7 @@ export class VacancyComponent implements OnInit {
     private vacancyService: VacanciesService,
     private messageService: FeedbackMessageService,
     private applicationsService: ApplicationsService,
-    private feedbackMessage: FeedbackMessageService,
+    private feedbackMessage: FeedbackMessageService
   ) {}
 
   ngOnInit(): void {
@@ -65,7 +65,7 @@ export class VacancyComponent implements OnInit {
   }
 
   private loadApplications(): void {
-    this.vacancyApplications$ = this.applicationsService
+    this.applications$ = this.applicationsService
       .getVacancyApplications(this.vacancyId)
       .pipe(take(1));
   }
@@ -125,42 +125,31 @@ export class VacancyComponent implements OnInit {
     });
   }
 
-  getStatusColor(application: VacancyApplication): string {
-    const status = application.status;
-    if (status === 'PENDING') {
-      return 'hsl(0, 0%, 4%)';
-    } else if (status === 'ACCEPTED') {
-      return 'hsl(204, 86%, 53%)';
-    } else if (status === 'DONE') {
-      return 'hsl(141, 71%, 48%)';
-    } else if (status === 'ERROR') {
-      return 'hsl(348, 100%, 61%)';
-    } else if (status === 'DENIED') {
-      return 'hsl(48, 100%, 67%)';
-    } else {
-      return status;
-    }
+  getStatusColor(application: ApplicationResponse): string {
+    return ApplicationUtilities.getStatusColor(application.status);
   }
 
   toggleModal(): void {
     this.showErrorModal = !this.showErrorModal;
   }
 
-  canTryAgain(application: VacancyApplication): boolean {
+  canTryAgain(application: ApplicationResponse): boolean {
     return application.status !== 'DONE';
   }
 
-  sendAgain(application: VacancyApplication): void {
+  sendAgain(application: ApplicationResponse): void {
     this.sendRequest(application);
   }
 
-  private sendRequest(application: VacancyApplication): void {
+  private sendRequest(application: ApplicationResponse): void {
     this.applicationsService
-      .sendApplication(application.candidateId, this.vacancyId)
+      .sendApplication(application.candidate.id, this.vacancyId)
       .pipe(take(1))
       .subscribe(() => {
         this.loadApplications();
-        this.feedbackMessage.showSuccessMessage('Email com a solicitação foi enviado para candidato');
+        this.feedbackMessage.showSuccessMessage(
+          'Email com a solicitação foi enviado para candidato'
+        );
       });
   }
 }

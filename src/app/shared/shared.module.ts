@@ -8,10 +8,9 @@ import { CandidateProfileFormComponent } from './components/candidate-profile-fo
 import { DateViewComponent } from './components/date-view/date-view.component';
 import { ErrorMessagesComponent } from './components/error-messages/error-messages.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { VacanciesDropdownComponent } from './components/vacancies-dropdown/vacancies-dropdown.component';
-import { VacancyViewComponent } from './components/vacancy-view/vacancy-view.component';
-import { SliceKeepLastWordPipe } from './pipes/slice-keep-last-word.pipe';
 import { SkillEditComponent } from './components/skill-edit/skill-edit.component';
+import { VacanciesDropdownComponent } from './components/vacancies-dropdown/vacancies-dropdown.component';
+import { SliceKeepLastWordPipe } from './pipes/slice-keep-last-word.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +19,6 @@ import { SkillEditComponent } from './components/skill-edit/skill-edit.component
     VacanciesDropdownComponent,
     SliceKeepLastWordPipe,
     CandidateProfileFormComponent,
-    VacancyViewComponent,
     DateViewComponent,
     SkillEditComponent,
   ],
@@ -41,7 +39,6 @@ import { SkillEditComponent } from './components/skill-edit/skill-edit.component
     CandidateProfileFormComponent,
     CandidateProfileFormComponent,
     CandidateProfileFormComponent,
-    VacancyViewComponent,
     DateViewComponent,
     SkillEditComponent,
   ],

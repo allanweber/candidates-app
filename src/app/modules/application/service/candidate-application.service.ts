@@ -1,4 +1,3 @@
-import { VacancyView } from '../../../shared/model/vacancy-view.mode';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
@@ -7,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { CandidateProfile } from '../../../shared/model/candidate-profile.model';
 import { FeedbackMessageService } from '../../../shared/service/feedback-message.service';
 import { CandidateApplicationAccessToken } from '../model/candidate-application-access-token.model';
+import { DenyReason } from '../model/deny-reason.model';
 import { AccessTokenStorageService } from './access-token-storage.service';
 
 const ACCESS_TOKEN_KEY = 'candidate-application-access-token';
@@ -27,11 +27,30 @@ export class CandidateApplicationService {
     const access = this.validateAndGetToken();
     const headers = this.getAccessHeader(access);
     return this.http
-      .get<any>(
-        `${this.serverUrl}/validate-access/${access.applicationId}`,
-        { headers }
-      )
+      .get<any>(`${this.serverUrl}/validate-access/${access.applicationId}`, {
+        headers,
+      })
       .pipe(this.error());
+  }
+
+  accept(): Observable<any> {
+    const access = this.validateAndGetToken();
+    const headers = this.getAccessHeader(access);
+    return this.http
+      .post<any>(`${this.serverUrl}/${access.applicationId}/accept`, null, {
+        headers,
+      })
+      .pipe(this.error());
+  }
+
+  validateView(applicationId: string): Observable<any> {
+    return this.http
+      .get<any>(`${this.serverUrl}/${applicationId}/validate-view`);
+  }
+
+  deny(applicationId: string, reason: DenyReason): Observable<any> {
+    return this.http
+      .post<any>(`${this.serverUrl}/${applicationId}/deny`, reason);
   }
 
   getProfile(): Observable<CandidateProfile> {
@@ -39,15 +58,6 @@ export class CandidateApplicationService {
     const headers = this.getAccessHeader(access);
     return this.http.get<CandidateProfile>(
       `${this.serverUrl}/${access.applicationId}/profile`,
-      { headers }
-    );
-  }
-
-  getVacancy(): Observable<VacancyView> {
-    const access = this.validateAndGetToken();
-    const headers = this.getAccessHeader(access);
-    return this.http.get<VacancyView>(
-      `${this.serverUrl}/${access.applicationId}/vacancy`,
       { headers }
     );
   }
@@ -62,6 +72,10 @@ export class CandidateApplicationService {
     );
   }
 
+  getDenyReasons(): Observable<DenyReason[]> {
+    return this.http.get<DenyReason[]>(`${this.serverUrl}/deny-reasons`);
+  }
+
   private validateAndGetToken(): CandidateApplicationAccessToken {
     if (
       !this.accessTokenStorageService.hasToken() ||
@@ -72,7 +86,9 @@ export class CandidateApplicationService {
     return this.accessTokenStorageService.getToken;
   }
 
-  private getAccessHeader(access: CandidateApplicationAccessToken): HttpHeaders {
+  private getAccessHeader(
+    access: CandidateApplicationAccessToken
+  ): HttpHeaders {
     return new HttpHeaders().set(ACCESS_TOKEN_KEY, access.accessToken);
   }
 

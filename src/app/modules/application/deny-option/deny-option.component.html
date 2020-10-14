@@ -1,0 +1,36 @@
+
+  <div class="modal" [ngClass]="{'is-active': showErrorModal}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="notification">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Por favor, informe porque voçê não está interessado nessa vaga
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="field has-addons">
+              <div class="control is-expanded">
+                <div class="select is-fullwidth">
+                  <select name="country" (change)="onChange($event.target.value)">
+                    <option value="0">Selecione um motivo</option>
+                    <option *ngFor="let reason of reasons" [value]="reason.option">{{reason.optionText}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="control">
+                <button type="button" class="button is-link" [disabled]="!selected" (click)="send()">Enviar</button>
+              </div>
+            </div>
+            <div class="field has-addons">
+              <div class="control is-expanded">
+                <textarea [(ngModel)]="extraReason" class="textarea" placeholder="Informe um motivo especifico" rows="2"
+                  *ngIf="selected && selected.option === 'OTHER'"></textarea>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
+  </div>

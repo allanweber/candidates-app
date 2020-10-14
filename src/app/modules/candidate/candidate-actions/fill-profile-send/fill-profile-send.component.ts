@@ -7,11 +7,12 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
+import { ApplicationResponse } from '../../../../shared/model/application-response.model';
+import { ApplicationUtilities } from '../../../../shared/model/application-utilities.model';
+import { ApplicationsService } from '../../../../shared/service/applications.service';
 import { Vacancy } from '../../../vacancy/model/vacancy.model';
 import { Candidate } from '../../model/candidate.model';
-import { CandidateApplicationResponse } from '../../../../shared/model/candidate-application-response.model';
 import { FeedbackMessageService } from './../../../../shared/service/feedback-message.service';
-import { ApplicationsService } from '../../../../shared/service/applications.service';
 
 @Component({
   selector: 'app-fill-profile-send',
@@ -21,7 +22,7 @@ import { ApplicationsService } from '../../../../shared/service/applications.ser
 export class FillProfileSendComponent implements OnInit, OnChanges {
   @Input() candidate: Candidate;
   vacancy: Vacancy;
-  applications$: Observable<CandidateApplicationResponse[]>;
+  applications$: Observable<ApplicationResponse[]>;
   showErrorModal = false;
 
   constructor(
@@ -73,7 +74,7 @@ export class FillProfileSendComponent implements OnInit, OnChanges {
     this.showErrorModal = !this.showErrorModal;
   }
 
-  canTryAgain(application: CandidateApplicationResponse): boolean {
+  canTryAgain(application: ApplicationResponse): boolean {
     return application.status !== 'DONE';
   }
 
@@ -81,20 +82,7 @@ export class FillProfileSendComponent implements OnInit, OnChanges {
     this.sendRequest(vacancyId);
   }
 
-  getStatusColor(application: CandidateApplicationResponse): string {
-    const status = application.status;
-    if (status === 'PENDING') {
-      return 'hsl(0, 0%, 4%)';
-    } else if (status === 'ACCEPTED') {
-      return 'hsl(204, 86%, 53%)';
-    } else if (status === 'DONE') {
-      return 'hsl(141, 71%, 48%)';
-    } else if (status === 'ERROR') {
-      return 'hsl(348, 100%, 61%)';
-    } else if (status === 'DENIED') {
-      return 'hsl(48, 100%, 67%)';
-    } else {
-      return status;
-    }
+  getStatusColor(application: ApplicationResponse): string {
+    return ApplicationUtilities.getStatusColor(application.status);
   }
 }
