@@ -4,18 +4,35 @@
     <div class="field">
       <label class="label">Nome</label>
       <div class="control">
-        <input class="input" placeholder="Nome da vaga" name="name" type="text" formControlName="name" #name required
-          autocomplete="off" [ngClass]="{'is-danger': isInvalid('name')}">
+        <input class="input" placeholder="Nome da vaga" type="text" formControlName="name" required autocomplete="off"
+          [ngClass]="{'is-danger': isInvalid('name')}">
       </div>
       <p class="help is-danger" *ngIf="isInvalid('name')">Nome é inválido</p>
     </div>
 
     <div class="field">
+      <label class="label">Remoto?</label>
+      <div class="control">
+        <input id="switchExample" type="checkbox" name="switchExample" class="switch" formControlName="remote"
+          (change)="changeRemote()">
+        <label for="switchExample">Essa vaga aceita trabalho remoto?</label>
+      </div>
+    </div>
+
+    <div class="field" *ngIf="showLocation">
+      <label class="label">Localização</label>
+      <div class="control">
+        <input class="input" placeholder="Localização" type="text" formControlName="location" autocomplete="off"
+          [ngClass]="{'is-danger': isInvalid('location')}">
+      </div>
+      <p class="help is-danger" *ngIf="isInvalid('location')">Localização é inválida</p>
+    </div>
+
+    <div class="field">
       <label class="label">Descrição</label>
       <div class="control">
-        <textarea class="textarea" placeholder="Descrição" name="description" type="text" formControlName="description"
-          #description required autocomplete="off" [ngClass]="{'is-danger': isInvalid('description')}"
-          rows="4"></textarea>
+        <textarea class="textarea" placeholder="Descrição" type="text" formControlName="description" required
+          autocomplete="off" [ngClass]="{'is-danger': isInvalid('description')}" rows="4"></textarea>
       </div>
       <p class="help is-danger" *ngIf="isInvalid('description')">Descrição é inválida</p>
     </div>
@@ -53,7 +70,8 @@
       <tbody class="is-size-7">
         <tr *ngFor="let application of applications$ | async">
           <td>
-            <a [routerLink]="['/candidates/', application.candidate.id, 'candidate']"><strong>{{application.candidate.name}}</strong></a>
+            <a
+              [routerLink]="['/candidates/', application.candidate.id, 'candidate']"><strong>{{application.candidate.name}}</strong></a>
           </td>
           <td>
             <span [ngStyle]="{'color': getStatusColor(application)}">

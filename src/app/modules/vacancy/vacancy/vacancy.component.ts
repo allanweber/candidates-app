@@ -27,6 +27,8 @@ export class VacancyComponent implements OnInit {
     name: ['', [Validators.required, Validators.minLength(5)]],
     description: ['', [Validators.required, Validators.minLength(5)]],
     skills: [null, [Validators.required]],
+    remote: [false],
+    location: [''],
   });
 
   constructor(
@@ -61,6 +63,8 @@ export class VacancyComponent implements OnInit {
             }
           );
       }
+
+      this.locationValidation();
     });
   }
 
@@ -85,6 +89,8 @@ export class VacancyComponent implements OnInit {
       name: response.name,
       description: response.description,
       skills: response.skills,
+      remote: response.remote,
+      location: response.location,
     };
     this.vacancyForm.patchValue(formData);
   }
@@ -139,6 +145,25 @@ export class VacancyComponent implements OnInit {
 
   sendAgain(application: ApplicationResponse): void {
     this.sendRequest(application);
+  }
+
+  changeRemote(): void {
+    this.vacancyForm.get('location').setValue('');
+  }
+
+  get showLocation(): boolean {
+    return !this.vacancyForm.get('remote').value;
+  }
+
+  private locationValidation(): void {
+    const location = this.vacancyForm.get('location');
+    this.vacancyForm.get('remote').valueChanges.subscribe((value) => {
+      if (value) {
+        location.setValidators(null);
+      } else {
+        location.setValidators([Validators.required, Validators.minLength(5)]);
+      }
+    });
   }
 
   private sendRequest(application: ApplicationResponse): void {
