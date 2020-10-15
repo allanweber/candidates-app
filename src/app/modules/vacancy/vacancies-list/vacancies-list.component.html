@@ -5,6 +5,7 @@
   <thead>
     <th>Nome da vaga</th>
     <th>Descrição</th>
+    <th>Localização</th>
     <th>Skills</th>
   </thead>
   <tbody>
@@ -14,6 +15,10 @@
       </td>
       <td>
         <span>{{vacancy.description | sliceKeepLastWord:50}}</span>
+      </td>
+      <td>
+        <span *ngIf="vacancy.remote">Remoto</span>
+        <span>{{vacancy.location}}</span>
       </td>
       <td>
         <app-skill-edit [skills]="vacancy.skills.slice(0,4)" editable="false" removable="false" addable="false" yearsVisible="false" tagSize="are-small">
