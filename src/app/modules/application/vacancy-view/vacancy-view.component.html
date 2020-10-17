@@ -9,6 +9,11 @@
       <strong>{{vacancy.salary.to | currency:'BRL':true}}</strong></span>
   </div>
 </div>
+<div class="mb-3">
+  <h2 class="is-5">Localização</h2>
+  <span *ngIf="vacancy.remote"><strong>Remoto</strong></span>
+  <span *ngIf="!vacancy.remote"><strong>{{vacancy.location}}</strong></span>
+</div>
 <div>
   {{vacancy?.description}}
 </div>

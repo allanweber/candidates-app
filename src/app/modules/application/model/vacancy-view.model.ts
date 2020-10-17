@@ -4,5 +4,7 @@ export class VacancyView {
   name: string;
   description: string;
   skills: Skill[];
+  remote: boolean;
+  location: string;
   salary: Salary;
 }
