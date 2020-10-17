@@ -13,9 +13,8 @@
     <div class="field">
       <label class="label">Remoto?</label>
       <div class="control">
-        <input id="switchExample" type="checkbox" name="switchExample" class="switch" formControlName="remote"
-          (change)="changeRemote()">
-        <label for="switchExample">Essa vaga aceita trabalho remoto?</label>
+        <input id="remote" type="checkbox" class="switch" formControlName="remote" (change)="changeRemote()">
+        <label for="remote">Essa vaga aceita trabalho remoto?</label>
       </div>
     </div>
 
@@ -26,6 +25,40 @@
           [ngClass]="{'is-danger': isInvalid('location')}">
       </div>
       <p class="help is-danger" *ngIf="isInvalid('location')">Localização é inválida</p>
+    </div>
+
+    <div class="field" formGroupName="salary">
+      <label class="label">Salário</label>
+      <div class="field-body">
+        <div class="field">
+          <p class="control mt-2">
+            <input class="is-checkradio" id="salary-specific" type="radio" name="salary-type"
+              (change)="salaryType(true)" [checked]="isSpecificSalary">
+            <label for="salary-specific">Salário especifico</label>
+            <input class="is-checkradio" id="salary-range" type="radio" name="salary-type" (change)="salaryType(false)"
+              [checked]="!isSpecificSalary">
+            <label for="salary-range">Salário 'De' - 'Até'</label>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <input class="input" type="text" placeholder="R$ 123,45" formControlName="from" currencyMask
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left'}">
+          </p>
+        </div>
+        <div class="field" *ngIf="!isSpecificSalary">
+          <p class="control">
+            <input class="input" type="text" placeholder="R$ 123,45" formControlName="to" currencyMask
+              [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left'}">
+          </p>
+        </div>
+        <div class="field">
+          <p class="control mt-2">
+            <input id="visible" type="checkbox" class="switch" formControlName="visible">
+            <label class="mt-0" for="visible">O candidato pode ver?</label>
+          </p>
+        </div>
+      </div>
     </div>
 
     <div class="field">

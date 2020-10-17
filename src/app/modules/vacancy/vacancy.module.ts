@@ -1,3 +1,4 @@
+import { NgxCurrencyModule } from 'ngx-currency';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,6 +15,7 @@ import { VacancyComponent } from './vacancy/vacancy.component';
     ReactiveFormsModule,
     VacancyRoutingModule,
     SharedModule,
+    NgxCurrencyModule,
   ],
 })
 export class VacancyModule {}
