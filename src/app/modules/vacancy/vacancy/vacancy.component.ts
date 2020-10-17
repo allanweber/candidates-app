@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -17,10 +17,12 @@ import { FeedbackMessageService } from './../../../shared/service/feedback-messa
 })
 export class VacancyComponent implements OnInit {
   vacancyId: string;
+  vacancy: Vacancy;
   messages: string[] = [];
   applications$: Observable<ApplicationResponse[]>;
   items: FormArray;
   showErrorModal = false;
+  isSpecificSalary = true;
 
   public vacancyForm = this.builder.group({
     id: [''],
@@ -29,6 +31,11 @@ export class VacancyComponent implements OnInit {
     skills: [null, [Validators.required]],
     remote: [false],
     location: [''],
+    salary: this.builder.group({
+      from: [0],
+      to: [0],
+      visible: [false],
+    }),
   });
 
   constructor(
@@ -84,15 +91,38 @@ export class VacancyComponent implements OnInit {
   }
 
   load(response: Vacancy): void {
+    this.vacancy = response;
     const formData = {
-      id: response.id,
-      name: response.name,
-      description: response.description,
-      skills: response.skills,
-      remote: response.remote,
-      location: response.location,
+      id: this.vacancy.id,
+      name: this.vacancy.name,
+      description: this.vacancy.description,
+      skills: this.vacancy.skills,
+      remote: this.vacancy.remote,
+      location: this.vacancy.location,
+      salary: {
+        from: this.vacancy.salary?.from,
+        to: this.vacancy.salary?.to,
+        visible: this.vacancy.salary?.visible,
+      },
     };
     this.vacancyForm.patchValue(formData);
+    this.loadRadios();
+  }
+
+  loadRadios(): void {
+    if (this.vacancy.salary) {
+      this.isSpecificSalary =
+        this.vacancy.salary?.from > 0 && this.vacancy.salary?.to === 0;
+    } else {
+      this.isSpecificSalary = true;
+    }
+  }
+
+  salaryType(isSpecific): void {
+    this.isSpecificSalary = isSpecific;
+    if (this.isSpecificSalary) {
+      this.getSalaryForm.get('to').setValue(0);
+    }
   }
 
   save(): void {
@@ -153,6 +183,10 @@ export class VacancyComponent implements OnInit {
 
   get showLocation(): boolean {
     return !this.vacancyForm.get('remote').value;
+  }
+
+  private get getSalaryForm(): FormGroup {
+    return this.vacancyForm.get('salary') as FormGroup;
   }
 
   private locationValidation(): void {

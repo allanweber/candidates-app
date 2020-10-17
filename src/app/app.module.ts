@@ -38,7 +38,7 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = null;
       multi: true,
     },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
-    MessagingService
+    MessagingService,
   ],
   bootstrap: [AppComponent],
 })
