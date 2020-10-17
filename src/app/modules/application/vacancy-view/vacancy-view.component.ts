@@ -20,4 +20,8 @@ export class VacancyViewComponent implements OnInit {
       .pipe(take(1))
       .subscribe((response) => (this.vacancy = response));
   }
+
+  get isSalarySpecific(): boolean {
+    return this.vacancy.salary.from > 0 && this.vacancy.salary.to === 0;
+  }
 }

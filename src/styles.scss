@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~font-awesome/css/font-awesome.css';
+@import "~font-awesome/css/font-awesome.css";
 // Import Bulma core
-@import 'bulma';
-@import '~bulma-switch';
+@import "bulma";
+@import "~bulma-switch";
+@import "~bulma-checkradio";
 
 .is-clickable {
   cursor: pointer !important;
