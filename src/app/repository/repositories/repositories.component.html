@@ -1,0 +1,54 @@
+<!-- "name", "stars", "watchers", "commits", "pulls", "branches" "updatedAt",  -->
+<nav class="level">
+  <div class="level-left">
+    <div class="level-item">
+      <p class="subtitle is-6">
+        <strong>Order por</strong>
+      </p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div class="buttons has-addons">
+      <button class="button is-small" [ngClass]="{'is-success': isSortActive('name')}" [disabled]="isSortActive('name')"
+        (click)="sortChanged('name')">Nome</button>
+      <button class="button is-small" [ngClass]="{'is-success': isSortActive('stars')}"
+        [disabled]="isSortActive('stars')" (click)="sortChanged('stars')">Estrelas</button>
+      <button class="button is-small" [ngClass]="{'is-success': isSortActive('watchers')}"
+        [disabled]="isSortActive('watchers')" (click)="sortChanged('watchers')">Observadores</button>
+      <button class="button is-small" [ngClass]="{'is-success': isSortActive('commits')}"
+        [disabled]="isSortActive('commits')" (click)="sortChanged('commits')">Commits</button>
+      <button class="button is-small" [ngClass]="{'is-success': isSortActive('pulls')}"
+        [disabled]="isSortActive('pulls')" (click)="sortChanged('pulls')">Pulls</button>
+      <button class="button is-small" [ngClass]="{'is-success': isSortActive('branches')}"
+        [disabled]="isSortActive('branches')" (click)="sortChanged('branches')">Branches</button>
+      <button class="button is-small" [ngClass]="{'is-success': isSortActive('updatedAt')}"
+        [disabled]="isSortActive('updatedAt')" (click)="sortChanged('updatedAt')">Última atualização</button>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Repositórios</p>
+      <p class="title is-5"><i class="fa fa-th-large mr-2"></i>{{repositoryCounter?.repositories}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Estrelas</p>
+      <p class="title is-5"><i class="fa fa-star mr-2"></i>{{repositoryCounter?.starts}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Observadores</p>
+      <p class="title is-5"><i class="fa fa-eye mr-2"></i>{{repositoryCounter?.watchers}}</p>
+    </div>
+  </div>
+</nav>
+
+<div class="repository-container">
+  <div class="column is-one-third" *ngFor="let repository of repositories$ | async">
+    <app-repository-card [repository]="repository"></app-repository-card>
+  </div>
+</div>
+
+<app-pagination [config]="paginationConfig" (pageChanged)="pageChanged($event)"></app-pagination>

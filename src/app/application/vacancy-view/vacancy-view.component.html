@@ -1,0 +1,23 @@
+<h2 class="title is-3">{{vacancy?.name}}</h2>
+<div *ngIf="vacancy.salary" class="mb-3">
+  <h2 class="is-5">Salário</h2>
+  <div *ngIf="isSalarySpecific">
+    <span><strong>{{vacancy.salary.from | currency:'BRL':true}}</strong></span>
+  </div>
+  <div *ngIf="!isSalarySpecific">
+    <span>De <strong>{{vacancy.salary.from | currency:'BRL':true}}</strong> até
+      <strong>{{vacancy.salary.to | currency:'BRL':true}}</strong></span>
+  </div>
+</div>
+<div class="mb-3">
+  <h2 class="is-5">Localização</h2>
+  <span *ngIf="vacancy.remote"><strong>Remoto</strong></span>
+  <span *ngIf="!vacancy.remote"><strong>{{vacancy.location}}</strong></span>
+</div>
+<div>
+  {{vacancy?.description}}
+</div>
+<h2 class="title is-5 mt-3">Habilidades</h2>
+<div class="tags are-medium">
+  <span class="tag is-success" *ngFor="let skill of vacancy?.skills">{{skill.name}}</span>
+</div>

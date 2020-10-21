@@ -17,7 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["file-saver"],
+            "allowedCommonJsDependencies": [
+              "file-saver",
+              "chartjs-plugin-datalabels",
+              "chart.js"
+            ],
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",

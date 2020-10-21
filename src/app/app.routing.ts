@@ -11,19 +11,28 @@ const routes: Routes = [
   {
     path: 'candidates',
     loadChildren: () =>
-      import('./modules/candidate/candidate.module').then((m) => m.CandidateModule),
+      import('./candidate/candidate.module').then((m) => m.CandidateModule),
     canActivate: [AuthGuardService],
   },
   {
     path: 'vacancies',
     loadChildren: () =>
-      import('./modules/vacancy/vacancy.module').then((m) => m.VacancyModule),
+      import('./vacancy/vacancy.module').then((m) => m.VacancyModule),
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'candidates',
+    loadChildren: () =>
+      import('./repository/repository.module').then((m) => m.RepositoryModule),
     canActivate: [AuthGuardService],
   },
   {
     path: 'candidate-application',
-    loadChildren: () => import('./modules/application/candidate-application.module').then((m) => m.CandidateApplicationModule),
-  }
+    loadChildren: () =>
+      import('./application/candidate-application.module').then(
+        (m) => m.CandidateApplicationModule
+      ),
+  },
 ];
 
 @NgModule({

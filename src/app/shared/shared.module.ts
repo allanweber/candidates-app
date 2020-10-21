@@ -8,6 +8,7 @@ import { CandidateProfileFormComponent } from './components/candidate-profile-fo
 import { DateViewComponent } from './components/date-view/date-view.component';
 import { ErrorMessagesComponent } from './components/error-messages/error-messages.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 import { SkillEditComponent } from './components/skill-edit/skill-edit.component';
 import { VacanciesDropdownComponent } from './components/vacancies-dropdown/vacancies-dropdown.component';
 import { SliceKeepLastWordPipe } from './pipes/slice-keep-last-word.pipe';
@@ -21,6 +22,7 @@ import { SliceKeepLastWordPipe } from './pipes/slice-keep-last-word.pipe';
     CandidateProfileFormComponent,
     DateViewComponent,
     SkillEditComponent,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,7 @@ import { SliceKeepLastWordPipe } from './pipes/slice-keep-last-word.pipe';
     CandidateProfileFormComponent,
     DateViewComponent,
     SkillEditComponent,
+    PaginationComponent,
   ],
 })
 export class SharedModule {}
