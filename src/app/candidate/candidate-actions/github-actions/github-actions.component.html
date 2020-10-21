@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-content">
+    <p class="is-5">
+      <span>Github</span>
+      <span class="is-6" [ngStyle]="{'color': getGitAccessColor()}">
+        {{getGitStatusTranslated()}}
+        <span *ngIf="getGitAccessStatus() === 'ERROR'"> - <a (click)="toggleModal()">ver erro</a></span>
+      </span>
+    </p>
+    <p class="mt-1">
+      <i class="fa fa-th-large"></i><a [routerLink]="['repositories']"><span>
+          {{repositoryCounter?.repositories}} repositórios</span></a>
+    </p>
+    <p class="mt-1">
+      <i class="fa fa-star"></i><span> {{repositoryCounter?.starts}} estrelas</span>
+    </p>
+    <p class="mt-1">
+      <i class="fa fa-eye"></i><span> {{repositoryCounter?.watchers}} observadores</span>
+    </p>
+    <p class="mt-1">
+      <i class="fa fa-users mr-1"></i><span>{{candidate?.gitHubCandidate?.followers}} seguidores - seguido
+        {{candidate?.gitHubCandidate?.following}}</span>
+    </p>
+    <p class="mt-1">
+      <i class="fa fa-calendar"></i> {{candidate?.gitHubCandidate?.createdAt | date:'dd/MM/yyyy'}} - criado
+    </p>
+    <p class="mt-1">
+      <i class="fa fa-calendar"></i> {{candidate?.gitHubCandidate?.updatedAt | date:'dd/MM/yyyy'}} - atualizado
+    </p>
+  </div>
+  <div class="modal" [ngClass]="{'is-active': showErrorModal}">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="notification">
+        {{getGitAccessErro()}}
+      </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
+  </div>
+  <footer class="card-footer">
+    <p class="card-footer-item">
+      <button class="button is-link w-150 is-small" (click)="access()">{{getButtonText()}}</button>
+    </p>
+  </footer>
+</div>

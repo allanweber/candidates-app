@@ -1,0 +1,11 @@
+<nav class="pagination is-centered mt-2" role="navigation" aria-label="pagination">
+  <a class="pagination-previous button is-link" (click)="clickPrevious()" [attr.disabled]="previousIsDisabled">Página
+    anterior</a>
+  <a class="pagination-next button is-link" (click)="clickNext()" [attr.disabled]="nextIsDisabled">Próxima
+    página</a>
+  <ul class="pagination-list">
+    <span>Página <span class="tag is-light is-medium">{{currentPage}}</span> de <span
+        class="tag is-light is-medium">{{totalPages}}</span>
+      página{{ totalPages === 1? '' : 's' }}</span>
+  </ul>
+</nav>

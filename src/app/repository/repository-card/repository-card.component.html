@@ -1,0 +1,42 @@
+<div class="card">
+  <div class="">
+    <app-repository-graph [languages]="repository.languages"></app-repository-graph>
+  </div>
+  <div class="card-content">
+    <div class="media no-margin-bottom">
+      <div class="media-content">
+        <p class="title is-4 no-margin-bottom">{{repository.name}}</p>
+        <a [href]="repository.cloneUrl" target="_blank">Ver no GitHub</a>
+      </div>
+    </div>
+    <div class="content">
+      {{repository.description}}
+      <time [attr.datetime]="repository.updatedAt">Atualizado em
+        {{repository.updatedAt | date:'dd/MM/yyyy HH:mm'}}</time>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <span class="card-footer-item has-tooltip-bottom" [ngClass]="{'has-text-success': repository.watchers > 0}"
+      data-tooltip="Observadores">
+      <i class="fa fa-eye mr-2"></i>{{repository.watchers}}
+    </span>
+
+    <span class=" card-footer-item has-tooltip-bottom" [ngClass]="{'has-text-success': repository.stars > 0}"
+      data-tooltip="Estrelas">
+      <i class="fa fa-star mr-2"></i>{{repository.stars}}
+    </span>
+
+    <span class="card-footer-item has-tooltip-bottom" [ngClass]="{'has-text-success': repository.commits > 0}"
+      data-tooltip="Commits">
+      <i class="fa fa-upload mr-2"></i>{{repository.commits}}
+    </span>
+
+    <span class="card-footer-item has-tooltip-bottom" [ngClass]="{'has-text-success': repository.branches > 0}"
+      data-tooltip="Branches">
+      <img class="branch-icon mr-2" src="/assets/code-branch-solid.svg" *ngIf="repository.branches === 0">
+      <img class="branch-icon mr-2" src="/assets/code-branch-solid-green.svg" *ngIf="repository.branches >0">
+      {{repository.branches}}
+    </span>
+
+  </footer>
+</div>

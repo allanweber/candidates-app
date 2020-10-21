@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { Vacancy } from '../../../modules/vacancy/model/vacancy.model';
+import { Vacancy } from '../../model/vacancy.model';
 import { VacanciesService } from './../../service/vacancies.service';
 
 @Component({
@@ -16,9 +16,7 @@ export class VacanciesDropdownComponent implements OnInit {
 
   @Output() changed: EventEmitter<Vacancy> = new EventEmitter<Vacancy>();
 
-  constructor(
-    private vacanciesService: VacanciesService
-  ) {}
+  constructor(private vacanciesService: VacanciesService) {}
 
   ngOnInit(): void {
     this.vacancies$ = this.vacanciesService.getAll().pipe(take(1));
