@@ -14,7 +14,11 @@ export class RememberMeComponent implements OnInit {
   public messages: string[] = [];
 
   public rememberForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.maxLength(128),
+    ]),
   });
 
   constructor(
@@ -32,6 +36,8 @@ export class RememberMeComponent implements OnInit {
     const remember: any = {
       email: this.rememberForm.get('email').value,
     };
+
+    Object.keys(remember).map((key) => (remember[key] = remember[key]?.trim()));
 
     this.registrationService
       .rememberMe(remember)

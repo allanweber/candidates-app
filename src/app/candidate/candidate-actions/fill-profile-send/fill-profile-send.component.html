@@ -42,9 +42,23 @@
               [routerLink]="['/vacancies/', application.vacancy.id, 'editar']"><strong>{{application.vacancy.name}}</strong></a>
           </td>
           <td>
-            <span [ngStyle]="{'color': getStatusColor(application)}">
-              <b>{{application.statusText}}</b>
-            </span>
+            <a *ngIf="application.status === 'OTHER'; else notLink" (click)="toggleDenyModal()">
+              {{application.statusText}}
+            </a>
+            <ng-template #notLink>
+              <span [ngStyle]="{'color': getStatusColor(application)}">
+                <b>{{application.statusText}}</b>
+              </span>
+            </ng-template>
+            <div class="modal" [ngClass]="{'is-active': showDenyModal}">
+              <div class="modal-background"></div>
+              <div class="modal-content">
+                <div class="notification">
+                  {{application.extraDenyReason}}
+                </div>
+              </div>
+              <button class="modal-close is-large" aria-label="close" (click)="toggleDenyModal()"></button>
+            </div>
           </td>
           <td>
             <span>
@@ -57,7 +71,7 @@
             </span>
           </td>
           <td>
-            <a (click)="toggleModal()">
+            <a (click)="toggleErrorModal()">
               {{application.error | sliceKeepLastWord:20}}
             </a>
             <div class="modal" [ngClass]="{'is-active': showErrorModal}">
@@ -67,12 +81,13 @@
                   {{application.error}}
                 </div>
               </div>
-              <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
+              <button class="modal-close is-large" aria-label="close" (click)="toggleErrorModal()"></button>
             </div>
           </td>
           <td>
             <div *ngIf="canTryAgain(application)">
-              <button class="button is-link is-pulled-right is-small" (click)="sendAgain(application.vacancy.id)">Reenviar</button>
+              <button class="button is-link is-pulled-right is-small"
+                (click)="sendAgain(application.vacancy.id)">Reenviar</button>
             </div>
           </td>
         </tr>

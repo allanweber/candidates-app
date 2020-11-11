@@ -1,8 +1,8 @@
-import { RegistrationService } from './../service/registration.service';
-import { FeedbackMessageService } from './../../shared/service/feedback-message.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FeedbackMessageService } from './../../shared/service/feedback-message.service';
+import { RegistrationService } from './../service/registration.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,10 +14,34 @@ export class SignupComponent implements OnInit {
 
   public registerForm = this.builder.group(
     {
-      firstName: ['', [Validators.required, Validators.minLength(5)]],
-      lastName: ['', [Validators.required, Validators.minLength(5)]],
-      userName: ['', [Validators.required, Validators.minLength(5)]],
-      email: ['', [Validators.required, Validators.email]],
+      firstName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(128),
+        ],
+      ],
+      lastName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(128),
+        ],
+      ],
+      userName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(128),
+        ],
+      ],
+      email: [
+        '',
+        [Validators.required, Validators.email, Validators.maxLength(128)],
+      ],
       password: [
         '',
         [
@@ -54,6 +78,10 @@ export class SignupComponent implements OnInit {
       this.messageService.showWarningMessage('Dados informados são inválidos');
       return;
     }
+
+    const register: any = this.registerForm.value;
+
+    Object.keys(register).map((key) => (register[key] = register[key]?.trim()));
 
     this.registrationService.register(this.registerForm.value).subscribe(
       () => {

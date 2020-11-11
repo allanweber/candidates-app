@@ -18,12 +18,21 @@ export class CandidateComponent implements OnInit {
 
   public candidateForm = this.builder.group({
     id: [''],
-    name: ['', [Validators.required, Validators.minLength(5)]],
-    phone: ['', [Validators.required, Validators.minLength(10)]],
-    email: ['', [Validators.required, Validators.email]],
-    location: [''],
-    bio: [''],
-    currentCompany: [''],
+    name: [
+      '',
+      [Validators.required, Validators.minLength(5), Validators.maxLength(128)],
+    ],
+    phone: [
+      '',
+      [Validators.required, Validators.minLength(10), Validators.maxLength(20)],
+    ],
+    email: [
+      '',
+      [Validators.required, Validators.email, Validators.maxLength(128)],
+    ],
+    location: ['', Validators.maxLength(128)],
+    bio: ['', Validators.maxLength(10000)],
+    currentCompany: ['', Validators.maxLength(128)],
   });
 
   constructor(
@@ -83,8 +92,13 @@ export class CandidateComponent implements OnInit {
       return;
     }
 
+    const candidate = this.candidateForm.value;
+    Object.keys(candidate).map(
+      (key) => (candidate[key] = candidate[key]?.trim())
+    );
+
     this.candidatesService
-      .update(this.candidateForm.value)
+      .update(candidate)
       .pipe(take(1))
       .subscribe(
         () => {

@@ -60,7 +60,12 @@ export class DenyOptionComponent implements OnInit {
       );
       return;
     }
-    this.selected.extraReason = this.extraReason;
+    if (this.extraReason !== undefined && this.extraReason.length > 500) {
+      this.feedbackMessageService.showWarningMessage(
+        'Motivo especifico é muito grande, informe no máximo 500 caracteres.'
+      );
+    }
+    this.selected.extraReason = this.extraReason?.trim();
     this.reasonSelected.emit(this.selected);
     this.toggleModal();
   }

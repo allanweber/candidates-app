@@ -16,7 +16,10 @@ export class ChangePasswordComponent implements OnInit {
 
   public changeForm = this.builder.group(
     {
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        [Validators.required, Validators.email, Validators.maxLength(128)],
+      ],
       password: [
         '',
         [
@@ -72,6 +75,8 @@ export class ChangePasswordComponent implements OnInit {
       password: this.changeForm.get('password').value,
       confirmPassword: this.changeForm.get('confirmPassword').value,
     };
+
+    Object.keys(change).map((key) => (change[key] = change[key]?.trim()));
 
     this.registrationService.changePassword(change).subscribe(
       () => {

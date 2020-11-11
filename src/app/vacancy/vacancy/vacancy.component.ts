@@ -6,9 +6,9 @@ import { take } from 'rxjs/operators';
 import { ApplicationResponse } from '../../shared/model/application-response.model';
 import { ApplicationUtilities } from '../../shared/model/application-utilities.model';
 import { Skill } from '../../shared/model/skill.model';
+import { Vacancy } from '../../shared/model/vacancy.model';
 import { ApplicationsService } from '../../shared/service/applications.service';
 import { VacanciesService } from '../../shared/service/vacancies.service';
-import { Vacancy } from '../../shared/model/vacancy.model';
 import { FeedbackMessageService } from './../../shared/service/feedback-message.service';
 @Component({
   selector: 'app-vacancy',
@@ -24,13 +24,25 @@ export class VacancyComponent implements OnInit {
   showErrorModal = false;
   isSpecificSalary = true;
 
+  nonTrimProperty = ['salary', 'skills', 'remote'];
+
   public vacancyForm = this.builder.group({
     id: [''],
-    name: ['', [Validators.required, Validators.minLength(5)]],
-    description: ['', [Validators.required, Validators.minLength(5)]],
+    name: [
+      '',
+      [Validators.required, Validators.minLength(5), Validators.maxLength(128)],
+    ],
+    description: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(10000),
+      ],
+    ],
     skills: [null, [Validators.required]],
     remote: [false],
-    location: [''],
+    location: ['', Validators.maxLength(128)],
     salary: this.builder.group({
       from: [0],
       to: [0],
@@ -130,6 +142,13 @@ export class VacancyComponent implements OnInit {
       this.messageService.showWarningMessage('Dados informados são inválidos');
       return;
     }
+
+    const vacancy = this.vacancyForm.value;
+    Object.keys(vacancy).map((key) => {
+      if (!this.nonTrimProperty.includes(key)) {
+        vacancy[key] = vacancy[key]?.trim();
+      }
+    });
 
     this.vacancyService
       .save(this.vacancyForm.value)

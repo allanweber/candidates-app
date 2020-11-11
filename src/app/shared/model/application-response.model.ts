@@ -6,6 +6,7 @@ export class ApplicationResponse {
   updated: string;
   vacancy: VacancyApplication;
   candidate: CandidateApplication;
+  extraDenyReason: string;
 }
 
 export class CandidateApplication {

@@ -1,7 +1,7 @@
-import { AuthenticationService } from '../../core/service/authentication.service';
-import { FeedbackMessageService } from './../../shared/service/feedback-message.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../../core/service/authentication.service';
+import { FeedbackMessageService } from './../../shared/service/feedback-message.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,8 +10,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class SigninComponent implements OnInit {
   public loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
+    email: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.maxLength(128),
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(10),
+      Validators.maxLength(128),
+    ]),
   });
 
   constructor(
@@ -29,6 +37,10 @@ export class SigninComponent implements OnInit {
       email: this.loginForm.get('email').value,
       password: this.loginForm.get('password').value,
     };
+
+    Object.keys(credentials).map(
+      (key) => (credentials[key] = credentials[key]?.trim())
+    );
 
     this.authenticationService.authenticate(credentials);
   }
