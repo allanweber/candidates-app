@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Skill } from './../../model/skill.model';
+import { FeedbackMessageService } from './../../service/feedback-message.service';
 
 @Component({
   selector: 'app-skill-edit',
@@ -16,7 +17,7 @@ export class SkillEditComponent implements OnInit {
 
   @Output() changed: EventEmitter<Skill[]> = new EventEmitter<Skill[]>();
 
-  constructor() {}
+  constructor(private feedbackMessageService: FeedbackMessageService) {}
 
   ngOnInit(): void {}
 
@@ -35,7 +36,15 @@ export class SkillEditComponent implements OnInit {
       (val) => !this.skills.map((skill) => skill.name).includes(val)
     );
 
-    skillValues.forEach((skill) => this.skills.push({ name: skill, years: 0 }));
+    skillValues.forEach((skill) => {
+      if (skill.length > 50) {
+        this.feedbackMessageService.showWarningMessage(
+          `Habilidade ${skill} é muito grande, permitido no máximo 50 caracteres.`
+        );
+        return;
+      }
+      this.skills.push({ name: skill.trim(), years: 0 });
+    });
 
     this.changed.emit(this.skills);
     skillInput.value = '';

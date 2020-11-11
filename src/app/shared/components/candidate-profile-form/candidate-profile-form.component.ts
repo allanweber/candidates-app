@@ -19,8 +19,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { CandidateExperience } from '../../model/candidate-experience.model';
-import { Skill } from '../../model/skill.model';
 import { CandidateProfile } from '../../model/candidate-profile.model';
+import { Skill } from '../../model/skill.model';
 import { FeedbackMessageService } from './../../service/feedback-message.service';
 
 @Component({
@@ -35,15 +35,35 @@ export class CandidateProfileFormComponent
     CandidateProfile
   >();
   @ViewChildren('companyName') companyNameFields: QueryList<ElementRef>;
+  nonTrimProperty = ['start', 'end', 'skills'];
 
   experiences: FormArray;
 
   public candidateForm = this.builder.group({
-    name: ['', [Validators.required, Validators.minLength(5)]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required, Validators.minLength(10)]],
-    location: ['', [Validators.required, Validators.minLength(5)]],
-    bio: ['', [Validators.required, Validators.minLength(10)]],
+    name: [
+      '',
+      [Validators.required, Validators.minLength(5), Validators.maxLength(128)],
+    ],
+    email: [
+      '',
+      [Validators.required, Validators.email, Validators.maxLength(128)],
+    ],
+    phone: [
+      '',
+      [Validators.required, Validators.minLength(10), Validators.maxLength(20)],
+    ],
+    location: [
+      '',
+      [Validators.required, Validators.minLength(5), Validators.maxLength(128)],
+    ],
+    bio: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10000),
+      ],
+    ],
     experiences: this.builder.array([]),
   });
 
@@ -81,7 +101,22 @@ export class CandidateProfileFormComponent
       return;
     }
 
-    this.changed.emit(this.candidateForm.value);
+    const candidate = this.candidateForm.value;
+    Object.keys(candidate).map((key) => {
+      if (key !== 'experiences') {
+        candidate[key] = candidate[key]?.trim();
+      } else {
+        candidate[key].forEach((experience) => {
+          Object.keys(experience).map((expKey) => {
+            if (!this.nonTrimProperty.includes(expKey)) {
+              experience[expKey] = experience[expKey]?.trim();
+            }
+          });
+        });
+      }
+    });
+
+    this.changed.emit(candidate);
   }
 
   isInvalid(name): boolean {
@@ -153,12 +188,40 @@ export class CandidateProfileFormComponent
 
   private createExperience(): FormGroup {
     return this.builder.group({
-      companyName: ['', [Validators.required]],
-      companyLocation: ['', [Validators.required]],
-      position: ['', [Validators.required]],
+      companyName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(128),
+        ],
+      ],
+      companyLocation: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(128),
+        ],
+      ],
+      position: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(128),
+        ],
+      ],
       start: ['', [Validators.required]],
       end: [''],
-      description: ['', [Validators.required]],
+      description: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(10000),
+        ],
+      ],
       skills: [null],
     });
   }

@@ -22,6 +22,6 @@ export class VacancyViewComponent implements OnInit {
   }
 
   get isSalarySpecific(): boolean {
-    return this.vacancy.salary.from > 0 && this.vacancy.salary.to === 0;
+    return this.vacancy.salary?.from > 0 && this.vacancy.salary?.to === 0;
   }
 }

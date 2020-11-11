@@ -65,7 +65,7 @@ export class ViewApplicationComponent implements OnInit {
 
     this.accessTokenStorageService.add({
       applicationId: this.applicationId,
-      accessToken: this.validateForm.get('code').value,
+      accessToken: this.validateForm.get('code').value.trim(),
     });
 
     const validateAccess = this.candidateApplicationService

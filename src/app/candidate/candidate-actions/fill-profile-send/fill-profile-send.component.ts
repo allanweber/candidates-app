@@ -24,6 +24,7 @@ export class FillProfileSendComponent implements OnInit, OnChanges {
   vacancy: Vacancy;
   applications$: Observable<ApplicationResponse[]>;
   showErrorModal = false;
+  showDenyModal = false;
 
   constructor(
     private applicationsService: ApplicationsService,
@@ -70,8 +71,12 @@ export class FillProfileSendComponent implements OnInit, OnChanges {
       });
   }
 
-  toggleModal(): void {
+  toggleErrorModal(): void {
     this.showErrorModal = !this.showErrorModal;
+  }
+
+  toggleDenyModal(): void {
+    this.showDenyModal = !this.showDenyModal;
   }
 
   canTryAgain(application: ApplicationResponse): boolean {

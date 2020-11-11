@@ -15,8 +15,14 @@ export class CandidateAddComponent implements OnInit {
 
   public candidateForm = this.builder.group({
     id: [''],
-    name: ['', [Validators.required, Validators.minLength(5)]],
-    email: ['', [Validators.required, Validators.email]],
+    name: [
+      '',
+      [Validators.required, Validators.minLength(5), Validators.maxLength(128)],
+    ],
+    email: [
+      '',
+      [Validators.required, Validators.email, Validators.maxLength(128)],
+    ],
   });
 
   constructor(
@@ -34,8 +40,13 @@ export class CandidateAddComponent implements OnInit {
       return;
     }
 
+    const candidate = this.candidateForm.value;
+    Object.keys(candidate).map(
+      (key) => (candidate[key] = candidate[key]?.trim())
+    );
+
     this.candidatesService
-      .add(this.candidateForm.value)
+      .add(candidate)
       .pipe(take(1))
       .subscribe(
         (response) => {
